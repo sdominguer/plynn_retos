@@ -759,6 +759,8 @@ async function iniciarApp() {
   try {
     await cargarDesdeSheets();
     sheetsConectado = true;
+    // Sheets es la fuente de verdad — limpiar demos viejos del localStorage
+    localStorage.removeItem('plynn_retos_demo_seeded');
     console.log('✅ Conectado a Google Sheets');
   } catch (err) {
     console.warn('⚠️ Google Sheets no disponible, usando localStorage:', err.message);
@@ -768,7 +770,6 @@ async function iniciarApp() {
   mostrarCargando(false);
   renderHome();
   populateRetoSelect();
-  // Mostrar badge de estado de conexión
   mostrarEstadoConexion();
 }
 
@@ -868,8 +869,11 @@ async function cargarDesdeSheets() {
   retos = retosData;
   soluciones = Array.isArray(solucionesData) ? solucionesData : [];
 
+  // Sobreescribir localStorage con datos frescos de Sheets
   localStorage.setItem('plynn_retos', JSON.stringify(retos));
   localStorage.setItem('plynn_soluciones', JSON.stringify(soluciones));
+  // Marcar que ya NO se deben usar demos
+  localStorage.setItem('plynn_sheets_ok', '1');
   
   console.log(`✅ Sheets: ${retos.length} retos, ${soluciones.length} soluciones`);
 }
@@ -888,7 +892,14 @@ async function sheetsPost(action, data) {
 function cargarDesdeLocal() {
   const retosGuardados = JSON.parse(localStorage.getItem('plynn_retos') || '[]');
   soluciones = JSON.parse(localStorage.getItem('plynn_soluciones') || '[]');
+  const sheetsHaConectadoAntes = localStorage.getItem('plynn_sheets_ok') === '1';
 
+  // Si Sheets conectó antes, usar su caché (no demos)
+  if (retosGuardados.length > 0 && sheetsHaConectadoAntes) {
+    retos = retosGuardados;
+    return;
+  }
+  // Si nunca ha conectado y hay cache, usarlo
   if (retosGuardados.length > 0) {
     retos = retosGuardados;
   } else {
