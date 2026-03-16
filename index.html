@@ -288,17 +288,17 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 .btn-cerrar-reto {
   width: 100%; padding: 14px; margin-top: 12px;
   background: transparent;
-  border: 2px solid rgba(255,67,67,0.4);
-  color: rgba(255,255,255,0.8);
+  border: 1.5px solid rgba(255,67,67,0.35);
+  color: var(--rojo);
   border-radius: 12px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.25s;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.25s;
   letter-spacing: 0.3px;
 }
 .btn-cerrar-reto:hover {
-  background: rgba(255,67,67,0.15);
+  background: rgba(255,67,67,0.06);
   border-color: var(--rojo);
-  color: #fff;
+  color: var(--rojo);
 }
 </style>
 </head>
@@ -317,7 +317,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 </div>
 </div>
 <nav class="header-nav">
-<button class="btn-nav" onclick="showView('listado')">🔍 <span>Ver Retos</span></button>
+<button class="btn-nav" onclick="showView('listado')"><span>Ver Retos</span></button>
 <button class="btn-nav primary" onclick="showView('publicar')">+ <span>Publicar Reto</span></button>
 </nav>
 </header>
@@ -328,8 +328,8 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <h1 class="anim">Conectamos <em>retos</em> con<br/>soluciones innovadoras</h1>
 <p class="anim anim-d1">Publica tu reto de innovación abierta o postúlate como solver. PLYNN conecta PYMEs de Latinoamérica con startups, universidades y expertos que tienen la solución.</p>
 <div class="hero-actions anim anim-d2">
-<button class="btn-hero main" onclick="showView('publicar')">🚀 Publicar un reto</button>
-<button class="btn-hero sec" onclick="showView('listado')">🔍 Soy solver — ver retos</button>
+<button class="btn-hero main" onclick="showView('publicar')">Publicar un reto</button>
+<button class="btn-hero sec" onclick="showView('listado')">Soy solver — ver retos</button>
 </div>
 </section>
 
@@ -403,7 +403,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <div class="form-body">
 <form id="form-reto" onsubmit="submitReto(event)" novalidate>
 
-<div class="form-section-title">🏢 Información de la empresa</div>
+<div class="form-section-title">Información de la empresa</div>
 
 <div class="field">
 <label>Nombre de la empresa <span class="req">*</span></label>
@@ -433,7 +433,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <input type="email" name="correo" required placeholder="contacto@empresa.com" />
 </div>
 
-<div class="form-section-title">💡 El reto</div>
+<div class="form-section-title">El reto</div>
 
 <div class="field">
 <label>Reto de innovación abierta <span class="req">*</span>
@@ -476,7 +476,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 </div>
 </div>
 
-<div class="form-section-title">🤝 Relación con el solver</div>
+<div class="form-section-title">Relación con el solver</div>
 
 <div class="field">
 <label>Tipo de solver buscado</label>
@@ -523,7 +523,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <input type="text" name="contacto_info" placeholder="Nombre, cargo, teléfono..." />
 </div>
 
-<button type="submit" class="btn-submit">🚀 PUBLICAR RETO DE INNOVACIÓN</button>
+<button type="submit" class="btn-submit">PUBLICAR RETO DE INNOVACIÓN</button>
 </form>
 </div>
 </div>
@@ -545,12 +545,12 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <div class="auth-box">
 <p>¿Autoriza a PLYNN a usar los datos acá registrados para uso exclusivo de la postulación como solver de los retos de innovación abierta?</p>
 <div class="radio-group">
-<div class="radio-opt"><input type="radio" name="autorizacion" id="auth-si" value="SI" required /><label for="auth-si">✅ SÍ autorizo</label></div>
-<div class="radio-opt"><input type="radio" name="autorizacion" id="auth-no" value="NO" /><label for="auth-no">❌ NO autorizo</label></div>
+<div class="radio-opt"><input type="radio" name="autorizacion" id="auth-si" value="SI" required /><label for="auth-si">SÍ autorizo</label></div>
+<div class="radio-opt"><input type="radio" name="autorizacion" id="auth-no" value="NO" /><label for="auth-no">NO autorizo</label></div>
 </div>
 </div>
 
-<div class="form-section-title">🏢 Información del solver</div>
+<div class="form-section-title">Información del solver</div>
 
 <div class="field">
 <label>Nombre del solver <span class="req">*</span><span class="hint">Empresa, Institución de educación superior, startup, etc.</span></label>
@@ -579,7 +579,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 </div>
 </div>
 
-<div class="form-section-title">👤 Persona de contacto</div>
+<div class="form-section-title">Persona de contacto</div>
 
 <div class="field">
 <label>Nombre completo <span class="req">*</span></label>
@@ -619,7 +619,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 </select>
 </div>
 
-<div class="form-section-title">💡 La solución</div>
+<div class="form-section-title">La solución</div>
 
 <div class="field">
 <label>Reto al cual desea postular solución <span class="req">*</span></label>
@@ -638,10 +638,10 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <div class="field">
 <label>Nivel de desarrollo de la solución <span class="req">*</span></label>
 <div class="options-group" style="flex-direction:column; align-items:flex-start;">
-<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="Idea en fase conceptual" required /><span>💡 Idea en fase conceptual — propuesta definida sin desarrollo tangible</span></label>
-<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="En desarrollo" /><span>🔧 En desarrollo — PMV en construcción, aún no validado en entorno real</span></label>
-<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="Validado en entorno real" /><span>✅ Validado en entorno real — prototipo probado con resultados</span></label>
-<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="Producto/servicio en el mercado" /><span>🚀 Producto/servicio en el mercado — con posibilidad de ajuste</span></label>
+<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="Idea en fase conceptual" required /><span>Idea en fase conceptual — propuesta definida sin desarrollo tangible</span></label>
+<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="En desarrollo" /><span>En desarrollo — PMV en construcción, aún no validado en entorno real</span></label>
+<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="Validado en entorno real" /><span>Validado en entorno real — prototipo probado con resultados</span></label>
+<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="Producto/servicio en el mercado" /><span>Producto/servicio en el mercado — con posibilidad de ajuste</span></label>
 </div>
 </div>
 
@@ -650,7 +650,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <textarea name="mejor_solucion" required rows="4" placeholder="Argumente por qué su solución es la más adecuada para este reto..."></textarea>
 </div>
 
-<div class="form-section-title">⚖️ Propiedad Intelectual</div>
+<div class="form-section-title">Propiedad Intelectual</div>
 
 <div class="field">
 <label>¿La solución podría generar propiedad intelectual? <span class="req">*</span></label>
@@ -670,7 +670,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 </div>
 </div>
 
-<div class="form-section-title">👥 Equipo de trabajo</div>
+<div class="form-section-title">Equipo de trabajo</div>
 
 <div class="field">
 <label>¿Cuántas personas conforman su equipo?</label>
@@ -686,22 +686,22 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <input type="text" name="perfiles_equipo" placeholder="Ej: Ingeniero de software, Especialista en marketing..." />
 </div>
 
-<div class="form-section-title">📋 Tipo de convenio propuesto</div>
+<div class="form-section-title">Tipo de convenio propuesto</div>
 
 <div class="field">
 <label>¿Qué tipo de convenio propone con la empresa? <span class="req">*</span></label>
 <div class="options-group" style="flex-direction:column; align-items:flex-start;">
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Acepto el convenio propuesto por la empresa" /><span>✅ Acepto el convenio propuesto por la empresa</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Contrato de obra/asesoría técnica" /><span>📄 Contrato de obra / asesoría técnica</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Coocrear y coodesarrollar con financiamiento de ambos" /><span>🤝 Coocrear y coodesarrollar con financiamiento de ambos</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Vender la innovación a la empresa" /><span>💰 Vender la innovación a la empresa</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Crear emprendimiento conjunto" /><span>🚀 Crear emprendimiento o intraemprendimiento conjunto</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Convenio para explotación de resultados" /><span>⚖️ Convenio para la explotación de resultados entre ambos</span></label>
+<label class="option-pill"><input type="radio" name="convenio_solver" value="Acepto el convenio propuesto por la empresa" /><span>Acepto el convenio propuesto por la empresa</span></label>
+<label class="option-pill"><input type="radio" name="convenio_solver" value="Contrato de obra/asesoría técnica" /><span>Contrato de obra / asesoría técnica</span></label>
+<label class="option-pill"><input type="radio" name="convenio_solver" value="Coocrear y coodesarrollar con financiamiento de ambos" /><span>Coocrear y coodesarrollar con financiamiento de ambos</span></label>
+<label class="option-pill"><input type="radio" name="convenio_solver" value="Vender la innovación a la empresa" /><span>Vender la innovación a la empresa</span></label>
+<label class="option-pill"><input type="radio" name="convenio_solver" value="Crear emprendimiento conjunto" /><span>Crear emprendimiento o intraemprendimiento conjunto</span></label>
+<label class="option-pill"><input type="radio" name="convenio_solver" value="Convenio para explotación de resultados" /><span>Convenio para la explotación de resultados entre ambos</span></label>
 <label class="option-pill"><input type="radio" name="convenio_solver" value="Otro" /><span>Otro</span></label>
 </div>
 </div>
 
-<button type="submit" class="btn-submit" style="background:var(--rojo); color:#fff;">🚀 ENVIAR POSTULACIÓN</button>
+<button type="submit" class="btn-submit" style="background:var(--rojo); color:#fff;">ENVIAR POSTULACIÓN</button>
 </form>
 </div>
 </div>
@@ -713,7 +713,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <div id="modal-cerrar" style="display:none;">
   <div class="modal-overlay" onclick="cerrarModal(event)">
     <div class="modal-box" onclick="event.stopPropagation()">
-      <div style="font-size:40px; text-align:center; margin-bottom:16px;">✅</div>
+      
       <h3 style="text-align:center;">Marcar reto como completado</h3>
       <p style="text-align:center;">Para confirmar, ingresa el correo con el que publicaste este reto. El reto y todas sus postulaciones serán eliminados permanentemente.</p>
       <div class="field">
@@ -722,7 +722,7 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
       </div>
       <div class="modal-actions">
         <button class="btn-cancelar" onclick="document.getElementById('modal-cerrar').style.display='none'">Cancelar</button>
-        <button class="btn-confirmar-cerrar" onclick="confirmarCierreReto()">🗑️ Eliminar reto</button>
+        <button class="btn-confirmar-cerrar" onclick="confirmarCierreReto()">Eliminar reto</button>
       </div>
     </div>
   </div>
@@ -1010,7 +1010,7 @@ function retoCardHTML(r) {
       <div class="reto-card-body">
         <span class="reto-sector">${r.sector}</span>
         <div class="reto-nombre">${r.reto}</div>
-        <div class="reto-empresa">🏢 ${r.empresa}</div>
+        <div class="reto-empresa">${r.empresa}</div>
         <div class="reto-desc">${r.descripcion}</div>
       </div>
       <div class="reto-card-footer">
@@ -1041,29 +1041,29 @@ function renderDetalle(id) {
     </div>
     <div class="detalle-grid">
       <div class="detalle-card full anim anim-d1">
-        <div class="detalle-card-label">📋 Descripción del reto</div>
+        <div class="detalle-card-label">Descripción del reto</div>
         <div class="detalle-card-value">${r.descripcion}</div>
       </div>
-      ${r.areas ? `<div class="detalle-card anim anim-d2"><div class="detalle-card-label">🏢 Áreas impactadas</div><div class="detalle-card-value">${r.areas}</div></div>` : ''}
-      ${r.tipo_innovacion?.length ? `<div class="detalle-card anim anim-d2"><div class="detalle-card-label">💡 Tipo de innovación</div><div class="tags-list">${innovTags}</div></div>` : ''}
-      ${r.requisitos ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">✅ Requisitos mínimos</div><div class="detalle-card-value">${r.requisitos}</div></div>` : ''}
-      ${r.barreras ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">⚠️ Posibles barreras</div><div class="detalle-card-value">${r.barreras}</div></div>` : ''}
-      ${solverTags ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">🎯 Tipo de solver buscado</div><div class="tags-list">${solverTags}</div></div>` : ''}
-      ${convenioTags ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">🤝 Tipo de convenio ofrecido</div><div class="tags-list">${convenioTags}</div></div>` : ''}
-      ${r.presupuesto ? `<div class="detalle-card anim anim-d4"><div class="detalle-card-label">💰 Presupuesto estimado</div><div class="detalle-card-value">${r.presupuesto}</div></div>` : ''}
-      ${r.tiempo ? `<div class="detalle-card anim anim-d4"><div class="detalle-card-label">⏰ Tiempo de ejecución</div><div class="detalle-card-value">${r.tiempo}</div></div>` : ''}
+      ${r.areas ? `<div class="detalle-card anim anim-d2"><div class="detalle-card-label">Áreas impactadas</div><div class="detalle-card-value">${r.areas}</div></div>` : ''}
+      ${r.tipo_innovacion?.length ? `<div class="detalle-card anim anim-d2"><div class="detalle-card-label">Tipo de innovación</div><div class="tags-list">${innovTags}</div></div>` : ''}
+      ${r.requisitos ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">Requisitos mínimos</div><div class="detalle-card-value">${r.requisitos}</div></div>` : ''}
+      ${r.barreras ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">Posibles barreras</div><div class="detalle-card-value">${r.barreras}</div></div>` : ''}
+      ${solverTags ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">Tipo de solver buscado</div><div class="tags-list">${solverTags}</div></div>` : ''}
+      ${convenioTags ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">Tipo de convenio ofrecido</div><div class="tags-list">${convenioTags}</div></div>` : ''}
+      ${r.presupuesto ? `<div class="detalle-card anim anim-d4"><div class="detalle-card-label">Presupuesto estimado</div><div class="detalle-card-value">${r.presupuesto}</div></div>` : ''}
+      ${r.tiempo ? `<div class="detalle-card anim anim-d4"><div class="detalle-card-label">Tiempo de ejecución</div><div class="detalle-card-value">${r.tiempo}</div></div>` : ''}
       <div class="detalle-card anim anim-d4">
-        <div class="detalle-card-label">📅 Fecha límite</div>
-        <div class="fecha-badge">📅 ${new Date(r.fecha_limite + 'T00:00:00').toLocaleDateString('es-CO', {year:'numeric',month:'long',day:'numeric'})}  ·  ${diasRestantes > 0 ? diasRestantes + ' días restantes' : 'Cerrado'}</div>
+        <div class="detalle-card-label">Fecha límite</div>
+        <div class="fecha-badge">${new Date(r.fecha_limite + 'T00:00:00').toLocaleDateString('es-CO', {year:'numeric',month:'long',day:'numeric'})}  ·  ${diasRestantes > 0 ? diasRestantes + ' días restantes' : 'Cerrado'}</div>
       </div>
       <div class="detalle-card anim anim-d4">
-        <div class="detalle-card-label">📨 Postulaciones recibidas</div>
+        <div class="detalle-card-label">Postulaciones recibidas</div>
         <div class="detalle-card-value" style="font-size:28px; font-weight:900; color:var(--cyan);">${numSols}</div>
       </div>
-      ${r.contacto_info ? `<div class="detalle-card full anim anim-d4"><div class="detalle-card-label">📞 Contacto</div><div class="detalle-card-value">${r.contacto_info}  |  ${r.correo}</div></div>` : ''}
+      ${r.contacto_info ? `<div class="detalle-card full anim anim-d4"><div class="detalle-card-label">Contacto</div><div class="detalle-card-value">${r.contacto_info}  |  ${r.correo}</div></div>` : ''}
     </div>
-    ${diasRestantes > 0 ? `<button class="btn-postular anim" onclick="showView('postular', '${r.id}')">🚀 PROPONER MI SOLUCIÓN</button>` : `<div class="info-box" style="margin-top:8px;">Este reto ya cerró su convocatoria. ¡Revisa otros retos activos!</div>`}
-    <button class="btn-cerrar-reto anim" onclick="abrirModalCerrar('${r.id}')">✅ Marcar como completado y eliminar</button>
+    ${diasRestantes > 0 ? `<button class="btn-postular anim" onclick="showView('postular', '${r.id}')">PROPONER MI SOLUCIÓN</button>` : `<div class="info-box" style="margin-top:8px;">Este reto ya cerró su convocatoria. ¡Revisa otros retos activos!</div>`}
+    <button class="btn-cerrar-reto anim" onclick="abrirModalCerrar('${r.id}')">Marcar como completado y eliminar</button>
   `;
 }
 
@@ -1075,7 +1075,7 @@ async function submitReto(e) {
   const convenios = [...f.querySelectorAll('[name="convenio"]:checked')].map(el => el.value);
 
   if (!f.empresa.value || !f.sector.value || !f.correo.value || !f.reto.value || !f.descripcion.value || !f.fecha_limite.value) {
-    showToast('⚠️ Por favor completa todos los campos obligatorios', '#FF4343');
+    showToast('Completa todos los campos obligatorios', '#FF4343');
     return;
   }
 
@@ -1102,7 +1102,7 @@ async function submitReto(e) {
   // Deshabilitar botón mientras guarda
   const btn = f.querySelector('.btn-submit');
   btn.disabled = true;
-  btn.textContent = '⏳ Guardando...';
+  btn.textContent = 'Guardando...';
 
   try {
     if (sheetsConectado) {
@@ -1117,19 +1117,19 @@ async function submitReto(e) {
     document.querySelector('#view-publicar .form-page').innerHTML = `
       <div class="form-card">
         <div class="success-state">
-          <div class="success-icon">🎉</div>
+          <div class="success-icon" style="font-size:32px;">✓</div>
           <h2>¡Reto publicado con éxito!</h2>
           <p>Tu reto ya está visible para todos los solvers${sheetsConectado ? ' y guardado en Google Sheets' : ''}.</p>
           <button class="btn-postular" style="background:var(--amarillo);color:var(--azul);" onclick="showView('home')">Ver todos los retos</button>
         </div>
       </div>`;
-    showToast('✅ ¡Reto publicado exitosamente!');
+    showToast('Reto publicado exitosamente');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (err) {
     console.error(err);
     btn.disabled = false;
-    btn.textContent = '🚀 PUBLICAR RETO DE INNOVACIÓN';
-    showToast('❌ Error al guardar. Reintenta.', '#FF4343');
+    btn.textContent = 'PUBLICAR RETO DE INNOVACIÓN';
+    showToast('Error al guardar. Inténtalo de nuevo.', '#FF4343');
   }
 }
 
@@ -1138,13 +1138,13 @@ async function submitSolver(e) {
   const f = e.target;
   const autorizacion = f.autorizacion.value;
   if (autorizacion !== 'SI') {
-    showToast('⚠️ Debes autorizar el uso de tus datos para continuar', '#FF4343');
+    showToast('Debes autorizar el uso de tus datos para continuar', '#FF4343');
     return;
   }
   const required = ['solver_nombre', 'contacto_nombre', 'cargo', 'celular', 'correo', 'reto_id', 'descripcion_solucion', 'mejor_solucion'];
   for (const name of required) {
     if (!f[name] || !f[name].value) {
-      showToast('⚠️ Por favor completa todos los campos obligatorios', '#FF4343');
+      showToast('Completa todos los campos obligatorios', '#FF4343');
       return;
     }
   }
@@ -1175,7 +1175,7 @@ async function submitSolver(e) {
 
   const btn = f.querySelector('.btn-submit');
   btn.disabled = true;
-  btn.textContent = '⏳ Enviando...';
+  btn.textContent = 'Enviando...';
 
   try {
     if (sheetsConectado) {
@@ -1190,19 +1190,19 @@ async function submitSolver(e) {
     document.querySelector('#view-postular .form-page').innerHTML = `
       <div class="form-card">
         <div class="success-state">
-          <div class="success-icon">🎉</div>
+          <div class="success-icon" style="font-size:32px;">✓</div>
           <h2>¡Postulación enviada!</h2>
           <p>Tu solución fue registrada exitosamente${sheetsConectado ? ' en Google Sheets' : ''}. ¡Mucho éxito!</p>
           <button class="btn-postular" onclick="showView('listado')">Explorar más retos</button>
         </div>
       </div>`;
-    showToast('🚀 ¡Postulación enviada con éxito!');
+    showToast('Postulación enviada con éxito');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (err) {
     console.error(err);
     btn.disabled = false;
-    btn.textContent = '🚀 ENVIAR POSTULACIÓN';
-    showToast('❌ Error al enviar. Reintenta.', '#FF4343');
+    btn.textContent = 'ENVIAR POSTULACIÓN';
+    showToast('Error al enviar. Inténtalo de nuevo.', '#FF4343');
   }
 }
 
@@ -1248,7 +1248,7 @@ function cerrarModal(e) {
 async function confirmarCierreReto() {
   const correoIngresado = document.getElementById('input-correo-cierre').value.trim().toLowerCase();
   if (!correoIngresado) {
-    showToast('⚠️ Ingresa tu correo para confirmar', '#FF4343');
+    showToast('Ingresa tu correo para confirmar', '#FF4343');
     return;
   }
 
@@ -1259,14 +1259,14 @@ async function confirmarCierreReto() {
   }
 
   if (correoIngresado !== reto.correo.toLowerCase()) {
-    showToast('❌ El correo no coincide con el de la publicación', '#FF4343');
+    showToast('El correo no coincide con el de la publicación', '#FF4343');
     return;
   }
 
   // Confirmar
   const btn = document.querySelector('.btn-confirmar-cerrar');
   btn.disabled = true;
-  btn.textContent = '⏳ Eliminando...';
+  btn.textContent = 'Eliminando...';
 
   try {
     if (sheetsConectado) {
@@ -1281,13 +1281,13 @@ async function confirmarCierreReto() {
     localStorage.setItem('plynn_soluciones', JSON.stringify(soluciones));
 
     document.getElementById('modal-cerrar').style.display = 'none';
-    showToast('✅ Reto eliminado correctamente');
+    showToast('Reto eliminado correctamente');
     showView('listado');
 
   } catch (err) {
     console.error(err);
     btn.disabled = false;
-    btn.textContent = '🗑️ Eliminar reto';
+    btn.textContent = 'Eliminar reto';
     showToast('❌ Error al eliminar: ' + err.message, '#FF4343');
   }
 }
