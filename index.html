@@ -3,1214 +3,692 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PLYNN · Innovación Abierta</title>
-<link
-href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Georgia:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-rel="stylesheet" />
+<title>PLYNN · Retos de Innovación</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"/>
 <style>
 :root {
---azul: #1A3365;
---cyan: #0FBAE3;
---rojo: #FF4343;
---amarillo:#FFBB00;
---azul-m: #61809F;
---blanco: #FFFFFF;
---gris-f: #F4F6FA;
---gris-b: #E8ECF2;
---gris-t: #7A8AA0;
---negro: #111827;
---radio: 12px;
---sombra: 0 4px 24px rgba(26,51,101,0.10);
---sombra-h:0 8px 36px rgba(26,51,101,0.18);
+  --azul:    #1A3365;
+  --cyan:    #0FBAE3;
+  --rojo:    #FF4343;
+  --amarillo:#FFBB00;
+  --azul-m:  #61809F;
+  --blanco:  #FFFFFF;
+  --gris-f:  #F4F7FB;
+  --gris-b:  #E2E9F2;
+  --gris-t:  #6B7F96;
+  --negro:   #0D1B2E;
+  --r: 14px;
+  --shadow: 0 2px 20px rgba(26,51,101,0.08);
+  --shadow-h: 0 8px 40px rgba(26,51,101,0.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--gris-f);color:var(--negro);min-height:100vh;font-size:15px;line-height:1.6;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--gris-b);}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:3px;}
+
+/* ── HEADER ── */
+.header{
+  background:var(--azul);
+  padding:0 40px;
+  height:66px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 20px rgba(0,0,0,0.18);
+}
+.logo{display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;}
+.logo-mark{width:34px;height:34px;}
+.logo-name{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;color:#fff;letter-spacing:-0.5px;}
+.logo-name span{color:var(--amarillo);}
+.logo-sub{font-size:10px;font-weight:500;color:var(--cyan);letter-spacing:2.5px;text-transform:uppercase;margin-top:1px;}
+.header-right{font-size:12px;color:rgba(255,255,255,0.5);font-weight:500;letter-spacing:0.3px;}
+
+/* ── VIEWS ── */
+.view{display:none;}
+.view.active{display:block;}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,#0d2247 0%,#1A3365 55%,#0e3058 100%);
+  padding:72px 40px 60px;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero-bg-circle{
+  position:absolute;border-radius:50%;pointer-events:none;
+}
+.hero-bg-circle.c1{width:500px;height:500px;top:-150px;right:-100px;background:radial-gradient(circle,rgba(15,186,227,0.12) 0%,transparent 70%);}
+.hero-bg-circle.c2{width:350px;height:350px;bottom:-100px;left:-60px;background:radial-gradient(circle,rgba(255,187,0,0.1) 0%,transparent 70%);}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(15,186,227,0.15);border:1px solid rgba(15,186,227,0.4);
+  color:var(--cyan);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  padding:6px 18px;border-radius:50px;margin-bottom:28px;
+}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(30px,5vw,54px);font-weight:800;color:#fff;line-height:1.08;margin-bottom:20px;letter-spacing:-1.5px;}
+.hero h1 em{color:var(--amarillo);font-style:normal;}
+.hero p{font-size:17px;color:rgba(255,255,255,0.65);max-width:560px;margin:0 auto 44px;font-weight:300;line-height:1.75;}
+.btn-hero{
+  padding:15px 36px;border-radius:50px;
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;border:none;transition:all 0.25s;letter-spacing:0.5px;
+  background:var(--amarillo);color:var(--azul);
+}
+.btn-hero:hover{background:#ffd000;transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,187,0,0.45);}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  background:#fff;
+  display:flex;justify-content:center;
+  box-shadow:0 1px 0 var(--gris-b),var(--shadow);
+}
+.stat{flex:1;max-width:200px;padding:26px 20px;text-align:center;border-right:1px solid var(--gris-b);}
+.stat:last-child{border-right:none;}
+.stat-num{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;color:var(--azul);line-height:1;display:block;}
+.stat-num.accent{color:var(--cyan);}
+.stat-label{font-size:11px;font-weight:600;color:var(--gris-t);text-transform:uppercase;letter-spacing:1.5px;margin-top:5px;display:block;}
+
+/* ── FILTERS ── */
+.filters-bar{
+  max-width:1160px;margin:0 auto;padding:32px 24px 0;
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+}
+.filter-pill{
+  padding:8px 20px;border-radius:50px;
+  border:1.5px solid var(--gris-b);background:#fff;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--gris-t);
+  cursor:pointer;transition:all 0.2s;
+}
+.filter-pill:hover{border-color:var(--cyan);color:var(--azul);}
+.filter-pill.active{background:var(--azul);border-color:var(--azul);color:#fff;}
+.search-wrap{flex:1;min-width:200px;max-width:320px;position:relative;margin-left:auto;}
+.search-wrap input{
+  width:100%;padding:9px 16px 9px 38px;
+  border:1.5px solid var(--gris-b);border-radius:50px;
+  font-family:'DM Sans',sans-serif;font-size:13px;color:var(--negro);background:#fff;
+  outline:none;transition:all 0.2s;
+}
+.search-wrap input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(15,186,227,0.1);}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gris-t);font-size:15px;pointer-events:none;}
+
+/* ── GRID ── */
+.section{max-width:1160px;margin:0 auto;padding:32px 24px 64px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;}
+
+/* ── RETO CARD ── */
+.card{
+  background:#fff;border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--shadow);border:1.5px solid var(--gris-b);
+  transition:all 0.3s cubic-bezier(.22,.68,0,1.2);cursor:pointer;
+  display:flex;flex-direction:column;
+  animation:fadeUp 0.5s ease both;
+}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-h);border-color:var(--cyan);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.card-stripe{height:4px;background:linear-gradient(90deg,var(--cyan),var(--azul));}
+.card-body{padding:22px 24px;flex:1;}
+.card-sector{
+  display:inline-block;background:var(--gris-f);
+  color:var(--azul-m);font-size:10px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;padding:4px 12px;border-radius:50px;margin-bottom:14px;
+}
+.card-reto{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--azul);line-height:1.35;margin-bottom:8px;}
+.card-empresa{font-size:13px;color:var(--gris-t);font-weight:400;margin-bottom:14px;}
+.card-desc{font-size:13px;color:#516070;line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.card-footer{
+  padding:14px 24px;border-top:1px solid var(--gris-b);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--gris-f);
+}
+.card-dias{font-size:12px;color:var(--gris-t);font-weight:500;}
+.card-dias strong{color:var(--rojo);}
+.card-dias.ok strong{color:#16a34a;}
+.btn-card{
+  background:var(--azul);color:#fff;border:none;
+  padding:7px 18px;border-radius:50px;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-card:hover{background:var(--cyan);}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:80px 24px;grid-column:1/-1;}
+.empty-icon{font-size:52px;margin-bottom:16px;display:block;}
+.empty h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--azul);margin-bottom:8px;}
+.empty p{font-size:14px;color:var(--gris-t);max-width:380px;margin:0 auto;}
+
+/* ── DETALLE ── */
+.det-wrap{max-width:860px;margin:0 auto;padding:44px 24px 64px;}
+.btn-back{
+  display:inline-flex;align-items:center;gap:7px;
+  background:transparent;border:1.5px solid var(--gris-b);color:var(--gris-t);
+  padding:9px 20px;border-radius:50px;font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;margin-bottom:28px;
+}
+.btn-back:hover{border-color:var(--azul);color:var(--azul);}
+.det-hero{
+  background:linear-gradient(135deg,#0d2247,#1A3365);
+  border-radius:16px;padding:40px;color:#fff;margin-bottom:24px;
+  position:relative;overflow:hidden;
+}
+.det-hero::after{content:'';position:absolute;right:-50px;top:-50px;width:220px;height:220px;background:radial-gradient(circle,rgba(15,186,227,0.18) 0%,transparent 70%);pointer-events:none;}
+.det-sector{display:inline-block;background:rgba(255,255,255,0.12);color:var(--cyan);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:16px;}
+.det-reto{font-family:'Syne',sans-serif;font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.2;margin-bottom:10px;letter-spacing:-0.5px;}
+.det-empresa{font-size:14px;color:rgba(255,255,255,0.6);font-weight:400;}
+.det-empresa strong{color:#fff;}
+.det-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px;}
+.det-card{background:#fff;border-radius:12px;padding:22px;box-shadow:var(--shadow);border:1px solid var(--gris-b);}
+.det-card.full{grid-column:1/-1;}
+.det-label{font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.det-value{font-size:14px;color:var(--negro);line-height:1.7;font-weight:400;}
+.det-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.det-tag{background:var(--gris-f);border:1.5px solid var(--gris-b);color:var(--azul);font-size:12px;font-weight:600;padding:4px 14px;border-radius:50px;}
+.fecha-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,67,67,0.07);border:1px solid rgba(255,67,67,0.22);
+  color:var(--rojo);font-size:13px;font-weight:700;padding:8px 16px;border-radius:8px;
+}
+.btn-postular{
+  width:100%;padding:17px;
+  background:linear-gradient(135deg,var(--cyan),#0a8fb8);color:#fff;border:none;
+  border-radius:12px;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;
+  cursor:pointer;transition:all 0.25s;letter-spacing:0.5px;margin-top:4px;
+}
+.btn-postular:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,186,227,0.4);}
+.closed-box{
+  background:rgba(255,67,67,0.06);border:1px solid rgba(255,67,67,0.2);
+  border-radius:12px;padding:18px 22px;margin-top:4px;
+  font-size:14px;color:var(--rojo);font-weight:500;text-align:center;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-font-family: 'Montserrat', sans-serif;
-background: var(--gris-f);
-color: var(--negro);
-min-height: 100vh;
-font-size: 15px;
+/* ── FORMULARIO SOLVER ── */
+.form-wrap{max-width:760px;margin:0 auto;padding:44px 24px 64px;}
+.form-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden;}
+.form-head{background:linear-gradient(135deg,#0d2247,#1A3365);padding:36px 40px;color:#fff;}
+.form-head .eyebrow{font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.form-head h2{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;letter-spacing:-0.5px;margin-bottom:6px;}
+.form-head p{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;}
+.form-head .reto-ref{color:var(--amarillo);font-weight:600;font-size:13px;margin-top:8px;}
+.form-body{padding:36px 40px;}
+.f-section{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--azul);letter-spacing:2px;text-transform:uppercase;padding-bottom:12px;border-bottom:2px solid var(--gris-b);margin-bottom:22px;margin-top:30px;}
+.f-section:first-of-type{margin-top:0;}
+.field{margin-bottom:20px;}
+label{display:block;font-size:13px;font-weight:600;color:var(--azul);margin-bottom:7px;}
+label .req{color:var(--rojo);}
+label .hint{display:block;font-size:12px;font-weight:400;color:var(--gris-t);margin-top:2px;line-height:1.5;}
+input[type="text"],input[type="email"],input[type="url"],input[type="tel"],select,textarea{
+  width:100%;padding:11px 15px;border:1.5px solid var(--gris-b);border-radius:9px;
+  font-family:'DM Sans',sans-serif;font-size:14px;color:var(--negro);background:var(--gris-f);
+  transition:all 0.2s;outline:none;appearance:none;
 }
+input:focus,select:focus,textarea:focus{border-color:var(--cyan);background:#fff;box-shadow:0 0 0 3px rgba(15,186,227,0.1);}
+textarea{resize:vertical;min-height:110px;line-height:1.65;}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2361809F' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;}
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--gris-b); }
-::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:4px;}
+.pill{position:relative;}
+.pill input{display:none;}
+.pill span{display:inline-block;padding:7px 16px;border:1.5px solid var(--gris-b);border-radius:50px;font-size:13px;font-weight:500;color:var(--azul-m);cursor:pointer;transition:all 0.2s;background:#fff;user-select:none;}
+.pill input:checked~span{background:var(--azul);border-color:var(--azul);color:#fff;}
+.pill span:hover{border-color:var(--cyan);}
+.pill-col{flex-direction:column;align-items:flex-start;}
+.pill-col .pill span{border-radius:9px;width:100%;text-align:left;}
 
-.header {
-background: var(--azul);
-padding: 0 32px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-height: 68px;
-position: sticky;
-top: 0;
-z-index: 100;
-box-shadow: 0 2px 16px rgba(26,51,101,0.25);
+.auth-banner{
+  background:rgba(255,187,0,0.08);border:1.5px solid rgba(255,187,0,0.35);
+  border-radius:10px;padding:16px 20px;margin-bottom:26px;
 }
-.header-logo {
-display: flex;
-align-items: center;
-gap: 12px;
-text-decoration: none;
-cursor: pointer;
+.auth-banner p{font-size:13px;color:#5a6a7e;line-height:1.6;margin-bottom:12px;}
+.radios{display:flex;gap:12px;}
+.radio-opt input{display:none;}
+.radio-opt label{
+  padding:9px 26px;border:1.5px solid var(--gris-b);border-radius:8px;
+  font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;background:#fff;
+  display:block;
 }
-.logo-symbol { width: 36px; height: 36px; }
-.logo-text { font-size: 22px; font-weight: 800; color: var(--blanco); letter-spacing: -0.5px; }
-.logo-text span { color: var(--amarillo); }
-.header-subtitle { font-size: 11px; font-weight: 500; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; }
-.header-nav { display: flex; gap: 8px; align-items: center; }
-.btn-nav {
-background: transparent;
-border: 1.5px solid rgba(255,255,255,0.25);
-color: var(--blanco);
-padding: 8px 18px;
-border-radius: 50px;
-font-family: 'Montserrat', sans-serif;
-font-size: 13px;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.2s;
-letter-spacing: 0.3px;
-}
-.btn-nav:hover { background: rgba(255,255,255,0.12); border-color: var(--cyan); }
-.btn-nav.primary { background: var(--amarillo); border-color: var(--amarillo); color: var(--azul); }
-.btn-nav.primary:hover { background: #FFD000; transform: translateY(-1px); }
+.radio-opt input:checked+label{background:var(--cyan);border-color:var(--cyan);color:#fff;}
 
-.view { display: none; }
-.view.active { display: block; }
+.btn-submit{
+  width:100%;padding:16px;
+  background:linear-gradient(135deg,var(--cyan),#0a8fb8);color:#fff;border:none;
+  border-radius:10px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all 0.25s;letter-spacing:0.5px;margin-top:6px;
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(15,186,227,0.4);}
+.btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
 
-.hero {
-background: linear-gradient(135deg, var(--azul) 0%, #0d2247 60%, #0a1c3a 100%);
-padding: 80px 32px 64px;
-text-align: center;
-position: relative;
-overflow: hidden;
-}
-.hero::before {
-content: '';
-position: absolute;
-top: -80px; right: -80px;
-width: 400px; height: 400px;
-background: radial-gradient(circle, rgba(15,186,227,0.15) 0%, transparent 70%);
-pointer-events: none;
-}
-.hero::after {
-content: '';
-position: absolute;
-bottom: -60px; left: -60px;
-width: 300px; height: 300px;
-background: radial-gradient(circle, rgba(255,187,0,0.12) 0%, transparent 70%);
-pointer-events: none;
-}
-.hero-tag {
-display: inline-block;
-background: rgba(15,186,227,0.18);
-border: 1px solid var(--cyan);
-color: var(--cyan);
-font-size: 11px;
-font-weight: 700;
-letter-spacing: 3px;
-text-transform: uppercase;
-padding: 6px 18px;
-border-radius: 50px;
-margin-bottom: 24px;
-}
-.hero h1 { font-size: clamp(28px, 5vw, 52px); font-weight: 900; color: var(--blanco); line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
-.hero h1 em { color: var(--amarillo); font-style: normal; }
-.hero p { font-size: 17px; color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto 40px; font-weight: 400; line-height: 1.7; }
-.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.btn-hero { padding: 14px 32px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; border: none; transition: all 0.25s; letter-spacing: 0.3px; }
-.btn-hero.main { background: var(--amarillo); color: var(--azul); }
-.btn-hero.main:hover { background: #FFD000; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,187,0,0.4); }
-.btn-hero.sec { background: transparent; border: 2px solid rgba(255,255,255,0.4); color: var(--blanco); }
-.btn-hero.sec:hover { background: rgba(255,255,255,0.1); border-color: var(--cyan); }
+.pi-field{display:none;}
 
-.counters { background: var(--blanco); display: flex; justify-content: center; gap: 0; box-shadow: var(--sombra); }
-.counter-item { flex: 1; max-width: 220px; padding: 28px 24px; text-align: center; border-right: 1px solid var(--gris-b); }
-.counter-item:last-child { border-right: none; }
-.counter-num { font-size: 40px; font-weight: 900; color: var(--azul); line-height: 1; display: block; }
-.counter-num.cyan { color: var(--cyan); }
-.counter-label { font-size: 12px; font-weight: 600; color: var(--gris-t); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; display: block; }
+/* ── SUCCESS ── */
+.success-wrap{text-align:center;padding:60px 32px;max-width:480px;margin:0 auto;}
+.success-icon{width:80px;height:80px;background:linear-gradient(135deg,var(--cyan),var(--azul));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:34px;}
+.success-wrap h2{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--azul);margin-bottom:12px;}
+.success-wrap p{font-size:15px;color:var(--gris-t);line-height:1.7;margin-bottom:28px;}
 
-.section { max-width: 1200px; margin: 0 auto; padding: 60px 24px; }
-.section-header { margin-bottom: 40px; }
-.section-eyebrow { font-size: 11px; font-weight: 700; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
-.section-title { font-size: clamp(22px, 3vw, 32px); font-weight: 800; color: var(--azul); letter-spacing: -0.5px; }
-
-.retos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-.reto-card { background: var(--blanco); border-radius: var(--radio); overflow: hidden; box-shadow: var(--sombra); transition: all 0.3s; cursor: pointer; border: 1.5px solid transparent; display: flex; flex-direction: column; }
-.reto-card:hover { transform: translateY(-4px); box-shadow: var(--sombra-h); border-color: var(--cyan); }
-.reto-card-top { height: 6px; background: linear-gradient(90deg, var(--cyan), var(--azul)); }
-.reto-card-body { padding: 24px; flex: 1; }
-.reto-sector { display: inline-block; background: var(--gris-f); color: var(--azul-m); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 50px; margin-bottom: 14px; }
-.reto-nombre { font-size: 16px; font-weight: 800; color: var(--azul); line-height: 1.35; margin-bottom: 8px; }
-.reto-empresa { font-size: 13px; color: var(--gris-t); font-weight: 500; margin-bottom: 16px; }
-.reto-desc { font-size: 13px; color: #5a6a7e; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.reto-card-footer { padding: 16px 24px; border-top: 1px solid var(--gris-b); display: flex; align-items: center; justify-content: space-between; background: var(--gris-f); }
-.reto-fecha { font-size: 12px; color: var(--gris-t); font-weight: 500; }
-.reto-fecha strong { color: var(--rojo); }
-.btn-ver { background: var(--azul); color: var(--blanco); border: none; padding: 8px 20px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; }
-.btn-ver:hover { background: var(--cyan); transform: translateY(-1px); }
-
-.empty-state { text-align: center; padding: 80px 24px; color: var(--gris-t); }
-.empty-icon { font-size: 56px; margin-bottom: 16px; display: block; }
-.empty-state h3 { font-size: 20px; font-weight: 700; color: var(--azul); margin-bottom: 8px; }
-.empty-state p { font-size: 14px; line-height: 1.6; max-width: 400px; margin: 0 auto 24px; }
-
-.form-page { max-width: 780px; margin: 0 auto; padding: 48px 24px; }
-.form-card { background: var(--blanco); border-radius: 16px; box-shadow: var(--sombra); overflow: hidden; }
-.form-card-header { background: linear-gradient(135deg, var(--azul), #0d2247); padding: 36px 40px; color: var(--blanco); }
-.form-card-header .eyebrow { font-size: 11px; font-weight: 700; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
-.form-card-header h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
-.form-card-header p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; }
-.form-body { padding: 40px; }
-.form-section-title { font-size: 13px; font-weight: 800; color: var(--azul); letter-spacing: 2px; text-transform: uppercase; padding-bottom: 12px; border-bottom: 2px solid var(--gris-b); margin-bottom: 24px; margin-top: 32px; }
-.form-section-title:first-child { margin-top: 0; }
-.field { margin-bottom: 22px; }
-label { display: block; font-size: 13px; font-weight: 700; color: var(--azul); margin-bottom: 8px; letter-spacing: 0.2px; }
-label .req { color: var(--rojo); margin-left: 3px; }
-label .hint { display: block; font-size: 12px; font-weight: 400; color: var(--gris-t); margin-top: 3px; line-height: 1.5; }
-input[type="text"], input[type="email"], input[type="date"], input[type="url"], input[type="tel"], input[type="number"], select, textarea {
-width: 100%; padding: 11px 16px; border: 1.5px solid var(--gris-b); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--negro); background: var(--gris-f); transition: all 0.2s; outline: none; appearance: none;
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:var(--azul);color:#fff;padding:14px 26px;border-radius:50px;
+  font-size:14px;font-weight:600;box-shadow:0 8px 32px rgba(26,51,101,0.3);
+  z-index:999;transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  display:flex;align-items:center;gap:9px;white-space:nowrap;
 }
-input:focus, select:focus, textarea:focus { border-color: var(--cyan); background: var(--blanco); box-shadow: 0 0 0 3px rgba(15,186,227,0.12); }
-textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2361809F' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+.toast.show{transform:translateX(-50%) translateY(0);}
 
-.options-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
-.option-pill { position: relative; }
-.option-pill input { display: none; }
-.option-pill span { display: inline-block; padding: 8px 18px; border: 1.5px solid var(--gris-b); border-radius: 50px; font-size: 13px; font-weight: 600; color: var(--azul-m); cursor: pointer; transition: all 0.2s; background: var(--blanco); margin-bottom: 0; letter-spacing: 0; user-select: none; }
-.option-pill input:checked ~ span { background: var(--azul); border-color: var(--azul); color: var(--blanco); }
-.option-pill span:hover { border-color: var(--cyan); color: var(--azul); }
-.radio-group { display: flex; gap: 12px; margin-top: 4px; }
-.radio-opt input { display: none; }
-.radio-opt label { padding: 9px 28px; border: 1.5px solid var(--gris-b); border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; background: var(--blanco); margin-bottom: 0; }
-.radio-opt input:checked + label { background: var(--cyan); border-color: var(--cyan); color: var(--blanco); }
-.info-box { background: rgba(15,186,227,0.08); border-left: 3px solid var(--cyan); padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 13px; color: #2a5a7a; line-height: 1.6; margin-top: 6px; }
-.btn-submit { width: 100%; padding: 16px; background: var(--amarillo); color: var(--azul); border: none; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 800; cursor: pointer; transition: all 0.25s; letter-spacing: 0.5px; margin-top: 8px; }
-.btn-submit:hover { background: #FFD000; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,187,0,0.4); }
-.btn-back { background: transparent; border: 1.5px solid var(--gris-b); color: var(--azul-m); padding: 10px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-bottom: 24px; display: inline-flex; align-items: center; gap: 6px; }
-.btn-back:hover { border-color: var(--azul); color: var(--azul); }
+/* ── FOOTER ── */
+footer{background:var(--azul);color:rgba(255,255,255,0.5);text-align:center;padding:26px 24px;font-size:12px;margin-top:40px;}
+footer strong{color:var(--cyan);}
 
-.detalle-page { max-width: 860px; margin: 0 auto; padding: 48px 24px; }
-.detalle-hero { background: linear-gradient(135deg, var(--azul), #0d2247); border-radius: 16px; padding: 40px; color: var(--blanco); margin-bottom: 28px; position: relative; overflow: hidden; }
-.detalle-hero::after { content: ''; position: absolute; right: -40px; top: -40px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(15,186,227,0.2) 0%, transparent 70%); pointer-events: none; }
-.detalle-sector-tag { display: inline-block; background: rgba(255,255,255,0.15); color: var(--cyan); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 50px; margin-bottom: 16px; }
-.detalle-reto { font-size: clamp(20px, 3vw, 28px); font-weight: 900; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.5px; }
-.detalle-empresa-tag { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 500; }
-.detalle-empresa-tag strong { color: var(--blanco); font-weight: 700; }
-.detalle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
-@media (max-width: 600px) { .detalle-grid { grid-template-columns: 1fr; } }
-.detalle-card { background: var(--blanco); border-radius: 12px; padding: 24px; box-shadow: var(--sombra); }
-.detalle-card.full { grid-column: 1 / -1; }
-.detalle-card-label { font-size: 11px; font-weight: 700; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
-.detalle-card-value { font-size: 14px; color: var(--negro); line-height: 1.7; font-weight: 500; }
-.tags-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.tag { background: var(--gris-f); border: 1.5px solid var(--gris-b); color: var(--azul); font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 50px; }
-.fecha-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,67,67,0.08); border: 1px solid rgba(255,67,67,0.25); color: var(--rojo); font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 8px; }
-.btn-postular { width: 100%; padding: 17px; background: var(--rojo); color: var(--blanco); border: none; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.25s; letter-spacing: 0.5px; margin-top: 8px; }
-.btn-postular:hover { background: #e03030; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,67,67,0.35); }
-
-.toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--azul); color: var(--blanco); padding: 16px 28px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 8px 32px rgba(26,51,101,0.35); z-index: 999; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); display: flex; align-items: center; gap: 10px; white-space: nowrap; }
-.toast.show { transform: translateX(-50%) translateY(0); }
-.toast-icon { font-size: 18px; }
-.success-state { text-align: center; padding: 60px 32px; max-width: 500px; margin: 0 auto; }
-.success-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--cyan), var(--azul)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 36px; }
-.success-state h2 { font-size: 26px; font-weight: 800; color: var(--azul); margin-bottom: 12px; }
-.success-state p { font-size: 15px; color: var(--gris-t); line-height: 1.7; margin-bottom: 28px; }
-.footer { background: var(--azul); color: rgba(255,255,255,0.6); text-align: center; padding: 28px 24px; font-size: 13px; margin-top: 60px; }
-.footer strong { color: var(--cyan); }
-@media (max-width: 768px) {
-.header { padding: 0 16px; }
-.header-subtitle { display: none; }
-.hero { padding: 52px 20px 44px; }
-.counters { flex-wrap: wrap; }
-.counter-item { min-width: 50%; border-right: none; border-bottom: 1px solid var(--gris-b); }
-.form-body { padding: 24px 20px; }
-.form-card-header { padding: 28px 24px; }
-.detalle-hero { padding: 28px 24px; }
-.retos-grid { grid-template-columns: 1fr; }
-.btn-nav span { display: none; }
-}
-.auth-box { background: rgba(255,187,0,0.08); border: 1.5px solid rgba(255,187,0,0.4); border-radius: 10px; padding: 16px 20px; margin-bottom: 28px; }
-.auth-box p { font-size: 13px; color: #5a6a7e; line-height: 1.6; margin-bottom: 14px; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-.anim { animation: fadeUp 0.5s ease both; }
-.anim-d1 { animation-delay: 0.05s; }
-.anim-d2 { animation-delay: 0.12s; }
-.anim-d3 { animation-delay: 0.2s; }
-.anim-d4 { animation-delay: 0.28s; }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-/* ---- MODAL CERRAR RETO ---- */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(10,28,58,0.7);
-  backdrop-filter: blur(4px);
-  z-index: 500;
-  display: flex; align-items: center; justify-content: center;
-  padding: 24px;
-  animation: fadeIn 0.2s ease;
-}
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-.modal-box {
-  background: var(--blanco);
-  border-radius: 16px;
-  padding: 40px;
-  max-width: 460px;
-  width: 100%;
-  box-shadow: 0 24px 64px rgba(10,28,58,0.35);
-  animation: slideUp 0.25s ease;
-}
-@keyframes slideUp { from { transform:translateY(20px); opacity:0; } to { transform:translateY(0); opacity:1; } }
-.modal-box h3 { font-size: 20px; font-weight: 800; color: var(--azul); margin-bottom: 8px; }
-.modal-box p  { font-size: 14px; color: var(--gris-t); line-height: 1.6; margin-bottom: 20px; }
-.modal-box .field { margin-bottom: 20px; }
-.modal-actions { display: flex; gap: 12px; margin-top: 8px; }
-.btn-cancelar {
-  flex: 1; padding: 12px; border-radius: 8px;
-  border: 1.5px solid var(--gris-b); background: transparent;
-  color: var(--azul-m); font-family: 'Montserrat', sans-serif;
-  font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;
-}
-.btn-cancelar:hover { border-color: var(--azul); color: var(--azul); }
-.btn-confirmar-cerrar {
-  flex: 1; padding: 12px; border-radius: 8px;
-  border: none; background: var(--rojo);
-  color: #fff; font-family: 'Montserrat', sans-serif;
-  font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;
-}
-.btn-confirmar-cerrar:hover { background: #cc2f2f; transform: translateY(-1px); }
-.btn-cerrar-reto {
-  width: 100%; padding: 14px; margin-top: 12px;
-  background: var(--blanco);
-  border: 1.5px solid #e0e0e0;
-  color: var(--rojo);
-  border-radius: 12px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.25s;
-  letter-spacing: 0.3px;
-}
-.btn-cerrar-reto:hover {
-  background: #fff5f5;
-  border-color: var(--rojo);
-  color: var(--rojo);
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .header{padding:0 16px;}
+  .hero{padding:52px 20px 44px;}
+  .stats-bar{flex-wrap:wrap;}
+  .stat{min-width:50%;border-right:none;border-bottom:1px solid var(--gris-b);}
+  .det-grid{grid-template-columns:1fr;}
+  .form-body{padding:24px 20px;}
+  .form-head{padding:28px 22px;}
+  .det-wrap,.form-wrap{padding:28px 16px 48px;}
+  .filters-bar{padding:24px 16px 0;}
 }
 </style>
 </head>
 <body>
 
 <header class="header">
-<div class="header-logo" onclick="showView('home')">
-<svg class="logo-symbol" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="5" y="10" width="10" height="22" rx="5" fill="#0FBAE3"/>
-<rect x="16" y="4" width="10" height="28" rx="5" fill="#FFBB00"/>
-<circle cx="21" cy="3" r="4" fill="#FFBB00"/>
-</svg>
-<div>
-<div class="logo-text">pl<span>y</span>nn</div>
-<div class="header-subtitle">Innovación Abierta</div>
-</div>
-</div>
-<nav class="header-nav">
-<button class="btn-nav" onclick="showView('listado')"><span>Ver Retos</span></button>
-<button class="btn-nav primary" onclick="showView('publicar')">+ <span>Publicar Reto</span></button>
-</nav>
+  <div class="logo" onclick="showView('home')">
+    <svg class="logo-mark" viewBox="0 0 34 34" fill="none">
+      <rect x="4" y="10" width="9" height="20" rx="4.5" fill="#0FBAE3"/>
+      <rect x="15" y="4" width="9" height="26" rx="4.5" fill="#FFBB00"/>
+      <circle cx="19.5" cy="3.5" r="3.5" fill="#FFBB00"/>
+    </svg>
+    <div>
+      <div class="logo-name">pl<span>y</span>nn</div>
+      <div class="logo-sub">Innovación Abierta</div>
+    </div>
+  </div>
+  <div class="header-right">Marketplace de innovación para PYMEs</div>
 </header>
 
+<!-- ══ HOME / LISTADO ══ -->
 <div id="view-home" class="view active">
-<section class="hero">
-<div class="hero-tag">Plataforma de Innovación para PYMEs</div>
-<h1 class="anim">Conectamos <em>retos</em> con<br/>soluciones innovadoras</h1>
-<p class="anim anim-d1">Publica tu reto de innovación abierta o postúlate como solver. PLYNN conecta PYMEs de Latinoamérica con startups, universidades y expertos que tienen la solución.</p>
-<div class="hero-actions anim anim-d2">
-<button class="btn-hero main" onclick="showView('publicar')">Publicar un reto</button>
-<button class="btn-hero sec" onclick="showView('listado')">Soy solver — ver retos</button>
-</div>
-</section>
+  <section class="hero">
+    <div class="hero-bg-circle c1"></div>
+    <div class="hero-bg-circle c2"></div>
+    <div class="hero-tag">Retos de innovación abierta</div>
+    <h1>Encuentra el reto<br/>que puedes <em>resolver</em></h1>
+    <p>Empresas de toda Latinoamérica publican sus desafíos reales. Postúlate como solver y construye la solución.</p>
+    <button class="btn-hero" onclick="document.getElementById('seccion-retos').scrollIntoView({behavior:'smooth'})">Ver retos activos ↓</button>
+  </section>
 
-<div class="counters" id="home-counters"></div>
+  <div class="stats-bar" id="stats-bar"></div>
 
-<div class="section">
-<div class="section-header">
-<div class="section-eyebrow">Últimas publicaciones</div>
-<h2 class="section-title">Retos activos de innovación</h2>
-</div>
-<div class="retos-grid" id="home-retos"></div>
-<div style="text-align:center; margin-top:36px;" id="home-ver-mas"></div>
-</div>
+  <div class="filters-bar" id="filters-bar">
+    <button class="filter-pill active" data-sector="todos" onclick="filtrar(this)">Todos</button>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Buscar retos..." oninput="filtrar(null)"/>
+    </div>
+  </div>
 
-<div style="background:var(--blanco); padding:60px 24px;">
-<div class="section" style="padding-top:0; padding-bottom:0;">
-<div class="section-header" style="text-align:center; margin-bottom:48px;">
-<div class="section-eyebrow">Proceso</div>
-<h2 class="section-title">¿Cómo funciona?</h2>
-</div>
-<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:32px;">
-<div style="text-align:center;">
-<div style="width:64px;height:64px;background:linear-gradient(135deg,var(--cyan),var(--azul));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;">🏢</div>
-<div style="font-weight:800;color:var(--azul);font-size:15px;margin-bottom:8px;">1. Publica tu reto</div>
-<div style="font-size:13px;color:var(--gris-t);line-height:1.6;">La empresa describe su desafío de innovación con todos los detalles.</div>
-</div>
-<div style="text-align:center;">
-<div style="width:64px;height:64px;background:linear-gradient(135deg,var(--amarillo),#FF8C00);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;">🔍</div>
-<div style="font-weight:800;color:var(--azul);font-size:15px;margin-bottom:8px;">2. Exploran solvers</div>
-<div style="font-size:13px;color:var(--gris-t);line-height:1.6;">Startups, universidades y expertos analizan los retos publicados.</div>
-</div>
-<div style="text-align:center;">
-<div style="width:64px;height:64px;background:linear-gradient(135deg,var(--rojo),#c0392b);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;">💡</div>
-<div style="font-weight:800;color:var(--azul);font-size:15px;margin-bottom:8px;">3. Proponen solución</div>
-<div style="font-size:13px;color:var(--gris-t);line-height:1.6;">El solver envía su propuesta con todos los detalles de la solución.</div>
-</div>
-<div style="text-align:center;">
-<div style="width:64px;height:64px;background:linear-gradient(135deg,#2ecc71,#27ae60);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;">🤝</div>
-<div style="font-weight:800;color:var(--azul);font-size:15px;margin-bottom:8px;">4. Crean alianza</div>
-<div style="font-size:13px;color:var(--gris-t);line-height:1.6;">Empresa y solver definen el modelo de colaboración ideal.</div>
-</div>
-</div>
-</div>
-</div>
+  <div class="section" id="seccion-retos">
+    <div class="grid" id="grid-retos"></div>
+  </div>
 </div>
 
-<div id="view-listado" class="view">
-<div class="section">
-<button class="btn-back" onclick="showView('home')">← Inicio</button>
-<div class="section-header">
-<div class="section-eyebrow">Marketplace de innovación</div>
-<h2 class="section-title">Retos de Innovación Abierta</h2>
-</div>
-<div class="retos-grid" id="listado-retos"></div>
-</div>
-</div>
-
+<!-- ══ DETALLE ══ -->
 <div id="view-detalle" class="view">
-<div class="detalle-page" id="detalle-contenido"></div>
+  <div class="det-wrap" id="detalle-contenido"></div>
 </div>
 
-<div id="view-publicar" class="view">
-<div class="form-page">
-<button class="btn-back" onclick="showView('home')">← Volver</button>
-<div class="form-card">
-<div class="form-card-header">
-<div class="eyebrow">Para empresas</div>
-<h2>Publicar Reto de Innovación Abierta</h2>
-<p>Comparte tu desafío con nuestra comunidad de innovadores. Entre más detallado sea tu reto, mejores soluciones recibirás.</p>
-</div>
-<div class="form-body">
-<form id="form-reto" onsubmit="submitReto(event)" novalidate>
-
-<div class="form-section-title">Información de la empresa</div>
-
-<div class="field">
-<label>Nombre de la empresa <span class="req">*</span></label>
-<input type="text" name="empresa" required placeholder="Ej. Soluciones Tech S.A.S." />
-</div>
-
-<div class="field">
-<label>Sector económico <span class="req">*</span></label>
-<select name="sector" required>
-<option value="">Seleccione un sector...</option>
-<option>Sector Financiero</option>
-<option>Sector de Servicios</option>
-<option>Sector Industrial</option>
-<option>Sector de Comercio</option>
-<option>Sector de Salud</option>
-<option>Sector Agropecuario</option>
-<option>Sector de Transporte</option>
-<option>Sector TIC</option>
-<option>Sector Minero y Energético</option>
-<option>Sector de las Comunicaciones</option>
-<option>Otro</option>
-</select>
-</div>
-
-<div class="field">
-<label>Correo electrónico de contacto <span class="req">*</span></label>
-<input type="email" name="correo" required placeholder="contacto@empresa.com" />
-</div>
-
-<div class="form-section-title">El reto</div>
-
-<div class="field">
-<label>Reto de innovación abierta <span class="req">*</span>
-<span class="hint">Formúlalo como una pregunta. Ej: ¿Cómo podemos reducir el desperdicio en nuestra línea de producción?</span>
-</label>
-<textarea name="reto" required placeholder="¿Cómo podemos...?"></textarea>
-</div>
-
-<div class="field">
-<label>Descripción del reto <span class="req">*</span>
-<span class="hint">Explique de dónde viene el reto, el problema u oportunidad identificada y los impactos que está generando.</span>
-</label>
-<textarea name="descripcion" required rows="5" placeholder="Describa la situación actual, el problema o necesidad, actores impactados y cifras relevantes..."></textarea>
-</div>
-
-<div class="field">
-<label>Área(s) de la empresa que impacta este reto</label>
-<input type="text" name="areas" placeholder="Ej: Producción, Logística, Servicio al cliente..." />
-</div>
-
-<div class="field">
-<label>Requisitos mínimos que debe tener la solución</label>
-<textarea name="requisitos" rows="3" placeholder="Características mínimas: técnicos, económicos, normativos, de tiempo, etc."></textarea>
-</div>
-
-<div class="field">
-<label>Barreras que cree pueda tener la solución</label>
-<textarea name="barreras" rows="3" placeholder="Posibles barreras: legales, técnicas, de mercado, etc."></textarea>
-</div>
-
-<div class="field">
-<label>Tipo de innovación buscada <span class="req">*</span></label>
-<div class="options-group" id="tipo-innovacion-group">
-<label class="option-pill"><input type="checkbox" name="tipo_innovacion" value="Producto" /><span>Producto</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_innovacion" value="Servicio" /><span>Servicio</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_innovacion" value="Proceso" /><span>Proceso</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_innovacion" value="Marketing / Endomarketing" /><span>Marketing / Endomarketing</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_innovacion" value="Modelo de negocio" /><span>Modelo de negocio</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_innovacion" value="Organizacional" /><span>Organizacional</span></label>
-</div>
-</div>
-
-<div class="form-section-title">Relación con el solver</div>
-
-<div class="field">
-<label>Tipo de solver buscado</label>
-<div class="options-group">
-<label class="option-pill"><input type="checkbox" name="tipo_solver" value="Universidad (estudiantes)" /><span>Universidad (estudiantes)</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_solver" value="Universidad (investigación)" /><span>Universidad (investigación)</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_solver" value="Empresa" /><span>Empresa</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_solver" value="Startup" /><span>Startup</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_solver" value="Centro tecnológico" /><span>Centro tecnológico</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_solver" value="Otro" /><span>Otro</span></label>
-</div>
-</div>
-
-<div class="field">
-<label>¿Qué tipo de convenio está interesado en realizar con el solver? <span class="req">*</span>
-<span class="hint">Puede seleccionar varias opciones</span>
-</label>
-<div class="options-group">
-<label class="option-pill"><input type="checkbox" name="convenio" value="Contrato de obra / asesoría técnica" /><span>Contrato de obra / asesoría técnica</span></label>
-<label class="option-pill"><input type="checkbox" name="convenio" value="Coocrear y coodesarrollar con financiamiento de la empresa" /><span>Coocrear y coodesarrollar</span></label>
-<label class="option-pill"><input type="checkbox" name="convenio" value="Comprar o adquirir la innovación resultante" /><span>Comprar la innovación</span></label>
-<label class="option-pill"><input type="checkbox" name="convenio" value="Crear emprendimiento conjunto" /><span>Emprendimiento conjunto</span></label>
-<label class="option-pill"><input type="checkbox" name="convenio" value="Convenio para explotar resultados" /><span>Explotar resultados entre ambos</span></label>
-</div>
-</div>
-
-<div class="field">
-<label>Promedio de presupuesto disponible (IVA incluido)</label>
-<input type="text" name="presupuesto" placeholder="Ej: $10.000.000 COP" />
-</div>
-
-<div class="field">
-<label>Promedio de tiempo para ejecución</label>
-<input type="text" name="tiempo" placeholder="Ej: 3 meses" />
-</div>
-
-<div class="field">
-<label>Fecha límite para recibir soluciones <span class="req">*</span></label>
-<input type="date" name="fecha_limite" required />
-</div>
-
-<div class="field">
-<label>Para más información contactar</label>
-<input type="text" name="contacto_info" placeholder="Nombre, cargo, teléfono..." />
-</div>
-
-<button type="submit" class="btn-submit">PUBLICAR RETO DE INNOVACIÓN</button>
-</form>
-</div>
-</div>
-</div>
-</div>
-
+<!-- ══ FORMULARIO SOLVER ══ -->
 <div id="view-postular" class="view">
-<div class="form-page">
-<button class="btn-back" id="back-from-postular" onclick="volverAlReto()">← Volver al reto</button>
-<div class="form-card">
-<div class="form-card-header">
-<div class="eyebrow">Para solvers</div>
-<h2>Postulación de Solver</h2>
-<p id="postular-reto-nombre" style="color:var(--amarillo); font-weight:700; margin-top:6px;"></p>
-</div>
-<div class="form-body">
-<form id="form-solver" onsubmit="submitSolver(event)" novalidate>
-
-<div class="auth-box">
-<p>¿Autoriza a PLYNN a usar los datos acá registrados para uso exclusivo de la postulación como solver de los retos de innovación abierta?</p>
-<div class="radio-group">
-<div class="radio-opt"><input type="radio" name="autorizacion" id="auth-si" value="SI" required /><label for="auth-si">SÍ autorizo</label></div>
-<div class="radio-opt"><input type="radio" name="autorizacion" id="auth-no" value="NO" /><label for="auth-no">NO autorizo</label></div>
-</div>
-</div>
-
-<div class="form-section-title">Información del solver</div>
-
-<div class="field">
-<label>Nombre del solver <span class="req">*</span><span class="hint">Empresa, Institución de educación superior, startup, etc.</span></label>
-<input type="text" name="solver_nombre" required placeholder="Nombre de la organización" />
-</div>
-
-<div class="field">
-<label>NIT <span class="hint">Sin dígito de verificación ni puntos</span></label>
-<input type="text" name="nit" placeholder="Ej: 900123456" />
-</div>
-
-<div class="field">
-<label>Página web</label>
-<input type="url" name="web" placeholder="https://www.ejemplo.com" />
-</div>
-
-<div class="field">
-<label>Tipo de solver <span class="req">*</span></label>
-<div class="options-group">
-<label class="option-pill"><input type="radio" name="tipo_solver_post" value="Universidad (estudiantes)" /><span>Universidad (estudiantes)</span></label>
-<label class="option-pill"><input type="radio" name="tipo_solver_post" value="Universidad (grupos de investigación)" /><span>Universidad (investigación)</span></label>
-<label class="option-pill"><input type="radio" name="tipo_solver_post" value="Empresa" /><span>Empresa</span></label>
-<label class="option-pill"><input type="radio" name="tipo_solver_post" value="Startup" /><span>Startup</span></label>
-<label class="option-pill"><input type="radio" name="tipo_solver_post" value="Centro de desarrollo tecnológico" /><span>Centro tecnológico</span></label>
-<label class="option-pill"><input type="radio" name="tipo_solver_post" value="Otro" /><span>Otro</span></label>
-</div>
-</div>
-
-<div class="form-section-title">Persona de contacto</div>
-
-<div class="field">
-<label>Nombre completo <span class="req">*</span></label>
-<input type="text" name="contacto_nombre" required placeholder="Nombre y apellido" />
-</div>
-
-<div class="field">
-<label>Cargo <span class="req">*</span></label>
-<input type="text" name="cargo" required placeholder="Ej: Director de Innovación" />
-</div>
-
-<div class="field">
-<label>Celular <span class="req">*</span></label>
-<input type="tel" name="celular" required placeholder="Ej: 300 123 4567" />
-</div>
-
-<div class="field">
-<label>Correo electrónico <span class="req">*</span></label>
-<input type="email" name="correo" required placeholder="correo@ejemplo.com" />
-</div>
-
-<div class="field">
-<label>Sector económico</label>
-<select name="sector_solver">
-<option value="">Seleccione...</option>
-<option>Sector Financiero</option>
-<option>Sector de Servicios</option>
-<option>Sector Industrial</option>
-<option>Sector de Comercio</option>
-<option>Sector de Salud</option>
-<option>Sector Agropecuario</option>
-<option>Sector de Transporte</option>
-<option>Sector TIC</option>
-<option>Sector Minero y Energético</option>
-<option>Sector de las Comunicaciones</option>
-<option>Otro</option>
-</select>
-</div>
-
-<div class="form-section-title">La solución</div>
-
-<div class="field">
-<label>Reto al cual desea postular solución <span class="req">*</span></label>
-<select name="reto_id" id="select-reto-solver" required>
-<option value="">Seleccione el reto...</option>
-</select>
-</div>
-
-<div class="field">
-<label>Descripción detallada de la solución <span class="req">*</span>
-<span class="hint">Explique la propuesta y cómo esta idea le da solución al reto seleccionado.</span>
-</label>
-<textarea name="descripcion_solucion" required rows="5" placeholder="Describa su solución de manera clara y detallada..."></textarea>
-</div>
-
-<div class="field">
-<label>Nivel de desarrollo de la solución <span class="req">*</span></label>
-<div class="options-group" style="flex-direction:column; align-items:flex-start;">
-<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="Idea en fase conceptual" required /><span>Idea en fase conceptual — propuesta definida sin desarrollo tangible</span></label>
-<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="En desarrollo" /><span>En desarrollo — PMV en construcción, aún no validado en entorno real</span></label>
-<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="Validado en entorno real" /><span>Validado en entorno real — prototipo probado con resultados</span></label>
-<label class="option-pill"><input type="radio" name="nivel_desarrollo" value="Producto/servicio en el mercado" /><span>Producto/servicio en el mercado — con posibilidad de ajuste</span></label>
-</div>
-</div>
-
-<div class="field">
-<label>¿Por qué podría ser la mejor solución? <span class="req">*</span></label>
-<textarea name="mejor_solucion" required rows="4" placeholder="Argumente por qué su solución es la más adecuada para este reto..."></textarea>
-</div>
-
-<div class="form-section-title">Propiedad Intelectual</div>
-
-<div class="field">
-<label>¿La solución podría generar propiedad intelectual? <span class="req">*</span></label>
-<div class="radio-group">
-<div class="radio-opt"><input type="radio" name="tiene_pi" id="pi-si" value="SI" onchange="togglePI(true)" /><label for="pi-si">SÍ</label></div>
-<div class="radio-opt"><input type="radio" name="tiene_pi" id="pi-no" value="NO" onchange="togglePI(false)" /><label for="pi-no">NO</label></div>
-</div>
-</div>
-
-<div class="field" id="campo-pi" style="display:none;">
-<label>Tipo de propiedad intelectual</label>
-<div class="options-group">
-<label class="option-pill"><input type="checkbox" name="tipo_pi" value="Patente" /><span>Patente</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_pi" value="Derechos de autor" /><span>Derechos de autor</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_pi" value="Secreto industrial" /><span>Secreto industrial</span></label>
-<label class="option-pill"><input type="checkbox" name="tipo_pi" value="Otro" /><span>Otro</span></label>
-</div>
-</div>
-
-<div class="form-section-title">Equipo de trabajo</div>
-
-<div class="field">
-<label>¿Cuántas personas conforman su equipo?</label>
-<div class="options-group">
-<label class="option-pill"><input type="radio" name="equipo_size" value="Solo" /><span>Solo/a</span></label>
-<label class="option-pill"><input type="radio" name="equipo_size" value="2 a 3 personas" /><span>2-3 personas</span></label>
-<label class="option-pill"><input type="radio" name="equipo_size" value="4 o más personas" /><span>4 o más</span></label>
-</div>
-</div>
-
-<div class="field">
-<label>Perfiles del equipo<span class="hint">Ej: Desarrollador, Comercial, Diseñador UX... (Si no tiene equipo escriba "No aplica")</span></label>
-<input type="text" name="perfiles_equipo" placeholder="Ej: Ingeniero de software, Especialista en marketing..." />
-</div>
-
-<div class="form-section-title">Tipo de convenio propuesto</div>
-
-<div class="field">
-<label>¿Qué tipo de convenio propone con la empresa? <span class="req">*</span></label>
-<div class="options-group" style="flex-direction:column; align-items:flex-start;">
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Acepto el convenio propuesto por la empresa" /><span>Acepto el convenio propuesto por la empresa</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Contrato de obra/asesoría técnica" /><span>Contrato de obra / asesoría técnica</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Coocrear y coodesarrollar con financiamiento de ambos" /><span>Coocrear y coodesarrollar con financiamiento de ambos</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Vender la innovación a la empresa" /><span>Vender la innovación a la empresa</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Crear emprendimiento conjunto" /><span>Crear emprendimiento o intraemprendimiento conjunto</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Convenio para explotación de resultados" /><span>Convenio para la explotación de resultados entre ambos</span></label>
-<label class="option-pill"><input type="radio" name="convenio_solver" value="Otro" /><span>Otro</span></label>
-</div>
-</div>
-
-<button type="submit" class="btn-submit" style="background:var(--rojo); color:#fff;">ENVIAR POSTULACIÓN</button>
-</form>
-</div>
-</div>
-</div>
-</div>
-
-
-<!-- Modal confirmar cierre de reto -->
-<div id="modal-cerrar" style="display:none;">
-  <div class="modal-overlay" onclick="cerrarModal(event)">
-    <div class="modal-box" onclick="event.stopPropagation()">
-      
-      <h3 style="text-align:center;">Marcar reto como completado</h3>
-      <p style="text-align:center;">Para confirmar, ingresa el correo con el que publicaste este reto. El reto y todas sus postulaciones serán eliminados permanentemente.</p>
-      <div class="field">
-        <label>Correo de verificación <span class="req">*</span></label>
-        <input type="email" id="input-correo-cierre" placeholder="correo@empresa.com" />
+  <div class="form-wrap">
+    <button class="btn-back" onclick="volverAlReto()">← Volver al reto</button>
+    <div class="form-card">
+      <div class="form-head">
+        <div class="eyebrow">Para solvers</div>
+        <h2>Postulación de Solver</h2>
+        <p>Envía tu propuesta para el reto seleccionado.</p>
+        <div class="reto-ref" id="postular-reto-ref"></div>
       </div>
-      <div class="modal-actions">
-        <button class="btn-cancelar" onclick="document.getElementById('modal-cerrar').style.display='none'">Cancelar</button>
-        <button class="btn-confirmar-cerrar" onclick="confirmarCierreReto()">Eliminar reto</button>
+      <div class="form-body">
+        <form id="form-solver" onsubmit="submitSolver(event)" novalidate>
+
+          <div class="auth-banner">
+            <p>¿Autorizas a PLYNN a usar tus datos registrados para uso exclusivo de esta postulación como solver?</p>
+            <div class="radios">
+              <div class="radio-opt"><input type="radio" name="autorizacion" id="auth-si" value="SI" required/><label for="auth-si">SÍ autorizo</label></div>
+              <div class="radio-opt"><input type="radio" name="autorizacion" id="auth-no" value="NO"/><label for="auth-no">NO autorizo</label></div>
+            </div>
+          </div>
+
+          <div class="f-section">Información del solver</div>
+          <div class="field"><label>Nombre <span class="req">*</span><span class="hint">Empresa, institución, startup, etc.</span></label><input type="text" name="solver_nombre" required placeholder="Nombre de la organización"/></div>
+          <div class="field"><label>NIT <span class="hint">Sin dígito de verificación</span></label><input type="text" name="nit" placeholder="Ej: 900123456"/></div>
+          <div class="field"><label>Página web</label><input type="url" name="web" placeholder="https://www.ejemplo.com"/></div>
+          <div class="field">
+            <label>Tipo de solver <span class="req">*</span></label>
+            <div class="pills">
+              <label class="pill"><input type="radio" name="tipo_solver_post" value="Universidad (estudiantes)" required/><span>Universidad (estudiantes)</span></label>
+              <label class="pill"><input type="radio" name="tipo_solver_post" value="Universidad (investigación)"/><span>Universidad (investigación)</span></label>
+              <label class="pill"><input type="radio" name="tipo_solver_post" value="Empresa"/><span>Empresa</span></label>
+              <label class="pill"><input type="radio" name="tipo_solver_post" value="Startup"/><span>Startup</span></label>
+              <label class="pill"><input type="radio" name="tipo_solver_post" value="Centro tecnológico"/><span>Centro tecnológico</span></label>
+              <label class="pill"><input type="radio" name="tipo_solver_post" value="Otro"/><span>Otro</span></label>
+            </div>
+          </div>
+
+          <div class="f-section">Persona de contacto</div>
+          <div class="field"><label>Nombre completo <span class="req">*</span></label><input type="text" name="contacto_nombre" required placeholder="Nombre y apellido"/></div>
+          <div class="field"><label>Cargo <span class="req">*</span></label><input type="text" name="cargo" required placeholder="Ej: Director de Innovación"/></div>
+          <div class="field"><label>Celular <span class="req">*</span></label><input type="tel" name="celular" required placeholder="Ej: 300 123 4567"/></div>
+          <div class="field"><label>Correo electrónico <span class="req">*</span></label><input type="email" name="correo" required placeholder="correo@ejemplo.com"/></div>
+          <div class="field">
+            <label>Sector económico</label>
+            <select name="sector_solver">
+              <option value="">Seleccione...</option>
+              <option>Sector Financiero</option><option>Sector de Servicios</option><option>Sector Industrial</option><option>Sector de Comercio</option><option>Sector de Salud</option><option>Sector Agropecuario</option><option>Sector de Transporte</option><option>Sector TIC</option><option>Sector Minero y Energético</option><option>Sector de las Comunicaciones</option><option>Otro</option>
+            </select>
+          </div>
+
+          <div class="f-section">La solución</div>
+          <div class="field">
+            <label>Reto al que postulas <span class="req">*</span></label>
+            <select name="reto_id" id="select-reto-solver" required><option value="">Seleccione el reto...</option></select>
+          </div>
+          <div class="field"><label>Descripción detallada de la solución <span class="req">*</span><span class="hint">Explica cómo tu propuesta resuelve este reto.</span></label><textarea name="descripcion_solucion" required rows="5" placeholder="Describe tu solución de forma clara..."></textarea></div>
+          <div class="field">
+            <label>Nivel de desarrollo <span class="req">*</span></label>
+            <div class="pills pill-col">
+              <label class="pill"><input type="radio" name="nivel_desarrollo" value="Idea en fase conceptual" required/><span>Idea conceptual — propuesta definida sin desarrollo tangible</span></label>
+              <label class="pill"><input type="radio" name="nivel_desarrollo" value="En desarrollo"/><span>En desarrollo — PMV en construcción, aún no validado</span></label>
+              <label class="pill"><input type="radio" name="nivel_desarrollo" value="Validado en entorno real"/><span>Validado en entorno real — prototipo probado</span></label>
+              <label class="pill"><input type="radio" name="nivel_desarrollo" value="Producto/servicio en el mercado"/><span>Producto/servicio en el mercado — con posibilidad de ajuste</span></label>
+            </div>
+          </div>
+          <div class="field"><label>¿Por qué sería la mejor solución? <span class="req">*</span></label><textarea name="mejor_solucion" required rows="4" placeholder="Argumenta las ventajas de tu solución..."></textarea></div>
+
+          <div class="f-section">Propiedad Intelectual</div>
+          <div class="field">
+            <label>¿La solución podría generar propiedad intelectual? <span class="req">*</span></label>
+            <div class="radios">
+              <div class="radio-opt"><input type="radio" name="tiene_pi" id="pi-si" value="SI" onchange="togglePI(true)"/><label for="pi-si">SÍ</label></div>
+              <div class="radio-opt"><input type="radio" name="tiene_pi" id="pi-no" value="NO" onchange="togglePI(false)"/><label for="pi-no">NO</label></div>
+            </div>
+          </div>
+          <div class="field pi-field" id="campo-pi">
+            <label>Tipo de propiedad intelectual</label>
+            <div class="pills">
+              <label class="pill"><input type="checkbox" name="tipo_pi" value="Patente"/><span>Patente</span></label>
+              <label class="pill"><input type="checkbox" name="tipo_pi" value="Derechos de autor"/><span>Derechos de autor</span></label>
+              <label class="pill"><input type="checkbox" name="tipo_pi" value="Secreto industrial"/><span>Secreto industrial</span></label>
+              <label class="pill"><input type="checkbox" name="tipo_pi" value="Otro"/><span>Otro</span></label>
+            </div>
+          </div>
+
+          <div class="f-section">Equipo de trabajo</div>
+          <div class="field">
+            <label>Tamaño del equipo</label>
+            <div class="pills">
+              <label class="pill"><input type="radio" name="equipo_size" value="Solo"/><span>Solo/a</span></label>
+              <label class="pill"><input type="radio" name="equipo_size" value="2 a 3 personas"/><span>2-3 personas</span></label>
+              <label class="pill"><input type="radio" name="equipo_size" value="4 o más personas"/><span>4 o más</span></label>
+            </div>
+          </div>
+          <div class="field"><label>Perfiles del equipo<span class="hint">Ej: Desarrollador, Comercial... (Si no tiene equipo: "No aplica")</span></label><input type="text" name="perfiles_equipo" placeholder="Ej: Ingeniero de software, Diseñador UX..."/></div>
+
+          <div class="f-section">Convenio propuesto</div>
+          <div class="field">
+            <label>¿Qué tipo de convenio propones? <span class="req">*</span></label>
+            <div class="pills pill-col">
+              <label class="pill"><input type="radio" name="convenio_solver" value="Acepto el convenio propuesto por la empresa"/><span>Acepto el convenio propuesto por la empresa</span></label>
+              <label class="pill"><input type="radio" name="convenio_solver" value="Contrato de obra/asesoría técnica"/><span>Contrato de obra / asesoría técnica</span></label>
+              <label class="pill"><input type="radio" name="convenio_solver" value="Coocrear y coodesarrollar con financiamiento de ambos"/><span>Coocrear y coodesarrollar con financiamiento compartido</span></label>
+              <label class="pill"><input type="radio" name="convenio_solver" value="Vender la innovación a la empresa"/><span>Vender la innovación a la empresa</span></label>
+              <label class="pill"><input type="radio" name="convenio_solver" value="Crear emprendimiento conjunto"/><span>Crear emprendimiento o intraemprendimiento conjunto</span></label>
+              <label class="pill"><input type="radio" name="convenio_solver" value="Convenio para explotación de resultados"/><span>Convenio para explotación de resultados entre ambos</span></label>
+              <label class="pill"><input type="radio" name="convenio_solver" value="Otro"/><span>Otro</span></label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="btn-enviar-solver">ENVIAR POSTULACIÓN</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast">
-<span class="toast-icon" id="toast-icon">✅</span>
-<span id="toast-msg">Acción completada</span>
-</div>
+<div class="toast" id="toast"><span id="toast-msg">Acción completada</span></div>
 
-<footer class="footer">
-<strong>PLYNN · Innovación Abierta</strong> — Conectando PYMEs de Latinoamérica con soluciones que transforman &nbsp;|&nbsp; Innovación para PYMEs de Latinoamérica
+<footer>
+  <strong>PLYNN · Innovación Abierta</strong> — Conectando PYMEs de Latinoamérica con soluciones que transforman
 </footer>
 
 <script>
-// ============================================================
-// 🔴 CONFIGURACIÓN — pega aquí la URL de tu Web App de Apps Script
-// ============================================================
+// ╔══════════════════════════════════════════════╗
+// ║  CONFIGURACIÓN — pega tu URL de Apps Script  ║
+// ╚══════════════════════════════════════════════╝
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9aqN8pxREnsefIhz68mCWdYr_Z41YdDLXv_cIFKEfdGGdjIFevGaeP2h-3oGlx2qBzA/exec';
-// ============================================================
 
 let retos = [];
 let soluciones = [];
 let currentRetoId = null;
-let sheetsConectado = false;
+let sectorActivo = 'todos';
 
-document.addEventListener('DOMContentLoaded', () => {
-  iniciarApp();
-});
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', iniciar);
 
-// ---- INICIO: carga desde Sheets o localStorage como fallback ----
-async function iniciarApp() {
-  mostrarCargando(true);
+async function iniciar() {
   try {
-    await cargarDesdeSheets();
-    sheetsConectado = true;
-    // Sheets es la fuente de verdad — limpiar demos viejos del localStorage
-    localStorage.removeItem('plynn_retos_demo_seeded');
-    console.log('✅ Conectado a Google Sheets');
-  } catch (err) {
-    console.warn('⚠️ Google Sheets no disponible, usando localStorage:', err.message);
-    cargarDesdeLocal();
-    sheetsConectado = false;
+    const [r, s] = await Promise.all([
+      fetch(`${APPS_SCRIPT_URL}?action=getRetos`).then(x => x.json()),
+      fetch(`${APPS_SCRIPT_URL}?action=getSoluciones`).then(x => x.json())
+    ]);
+    retos = Array.isArray(r) ? r : [];
+    soluciones = Array.isArray(s) ? s : [];
+    localStorage.setItem('plynn_retos', JSON.stringify(retos));
+    localStorage.setItem('plynn_soluciones', JSON.stringify(soluciones));
+  } catch {
+    retos = JSON.parse(localStorage.getItem('plynn_retos') || '[]');
+    soluciones = JSON.parse(localStorage.getItem('plynn_soluciones') || '[]');
   }
-  mostrarCargando(false);
   renderHome();
-  populateRetoSelect();
-  mostrarEstadoConexion();
+  populateSelect();
 }
 
-function mostrarEstadoConexion() {
-  const badge = document.createElement('div');
-  badge.style.cssText = `
-    position:fixed; bottom:20px; right:20px; z-index:200;
-    background:${sheetsConectado ? '#1A3365' : '#7A8AA0'};
-    color:#fff; padding:8px 14px; border-radius:50px;
-    font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700;
-    letter-spacing:1px; box-shadow:0 4px 16px rgba(0,0,0,0.2);
-    display:flex; align-items:center; gap:6px;
-    animation:fadeUp 0.5s ease both;
+// ── VISTAS ──
+function showView(v, param) {
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.getElementById(`view-${v}`).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (v === 'home') renderHome();
+  if (v === 'detalle' && param) renderDetalle(param);
+  if (v === 'postular' && param) {
+    populateSelect();
+    currentRetoId = param;
+    const r = retos.find(x => x.id === param);
+    document.getElementById('select-reto-solver').value = param;
+    if (r) document.getElementById('postular-reto-ref').textContent = '→ ' + r.reto;
+  }
+}
+
+// ── RENDER HOME ──
+function renderHome() {
+  // Stats
+  document.getElementById('stats-bar').innerHTML = `
+    <div class="stat"><span class="stat-num">${retos.length}</span><span class="stat-label">Retos publicados</span></div>
+    <div class="stat"><span class="stat-num accent">${soluciones.length}</span><span class="stat-label">Soluciones enviadas</span></div>
+    <div class="stat"><span class="stat-num">${new Set(retos.map(r => r.empresa)).size}</span><span class="stat-label">Empresas activas</span></div>
   `;
-  badge.innerHTML = sheetsConectado
-    ? '<span style="color:#0FBAE3">●</span> SHEETS CONECTADO'
-    : '<span style="color:#FFB347">●</span> MODO LOCAL';
-  document.body.appendChild(badge);
-  setTimeout(() => badge.style.opacity = '0', 4000);
-  setTimeout(() => badge.remove(), 4500);
-}
-
-function mostrarCargando(activo) {
-  let el = document.getElementById('loading-overlay');
-  if (!el) {
-    el = document.createElement('div');
-    el.id = 'loading-overlay';
-    el.style.cssText = `
-      position:fixed; inset:0; background:rgba(26,51,101,0.55);
-      display:flex; align-items:center; justify-content:center;
-      z-index:9999; backdrop-filter:blur(4px);
-    `;
-    el.innerHTML = `
-      <div style="background:#fff; border-radius:16px; padding:36px 48px; text-align:center; box-shadow:0 8px 40px rgba(0,0,0,0.2);">
-        <div style="font-size:36px; margin-bottom:12px; animation:spin 1s linear infinite; display:inline-block;">⏳</div>
-        <div style="font-family:'Montserrat',sans-serif; font-weight:700; color:#1A3365; font-size:15px;">Cargando retos...</div>
-      </div>
-    `;
-    document.body.appendChild(el);
-  }
-  el.style.display = activo ? 'flex' : 'none';
-}
-
-// ---- GOOGLE SHEETS: leer retos y soluciones ----
-// ---- Leer Sheets via CSV público (no requiere auth) ----
-// La sheet debe estar compartida como "Cualquier persona con el enlace puede ver"
-const SHEET_ID_PUBLIC = '1mlrP3aSlm9bhwalZdz2pq1OadAxegLlwv9RW_wbgOSg';
-
-function csvToObjects(csv) {
-  const lines = csv.trim().split('\n').map(l => {
-    // Parsear CSV respetando comillas
-    const result = [];
-    let cur = '', inQ = false;
-    for (let i = 0; i < l.length; i++) {
-      const c = l[i];
-      if (c === '"' && l[i+1] === '"') { cur += '"'; i++; }
-      else if (c === '"') { inQ = !inQ; }
-      else if (c === ',' && !inQ) { result.push(cur); cur = ''; }
-      else { cur += c; }
-    }
-    result.push(cur);
-    return result;
+  // Filtros por sector
+  const sectores = [...new Set(retos.map(r => r.sector).filter(Boolean))];
+  const fb = document.getElementById('filters-bar');
+  // Limpiar pills anteriores (mantener input búsqueda)
+  [...fb.querySelectorAll('.filter-pill')].forEach(el => el.remove());
+  const todosBtn = document.createElement('button');
+  todosBtn.className = 'filter-pill' + (sectorActivo === 'todos' ? ' active' : '');
+  todosBtn.dataset.sector = 'todos';
+  todosBtn.textContent = 'Todos';
+  todosBtn.onclick = () => filtrar(todosBtn);
+  fb.insertBefore(todosBtn, fb.querySelector('.search-wrap'));
+  sectores.forEach(sec => {
+    const b = document.createElement('button');
+    b.className = 'filter-pill' + (sectorActivo === sec ? ' active' : '');
+    b.dataset.sector = sec;
+    b.textContent = sec.replace('Sector ', '');
+    b.onclick = () => filtrar(b);
+    fb.insertBefore(b, fb.querySelector('.search-wrap'));
   });
-  if (lines.length < 2) return [];
-  const headers = lines[0].map(h => h.trim());
-  return lines.slice(1).map(row => {
-    const obj = {};
-    headers.forEach((h, i) => {
-      const val = (row[i] || '').trim();
-      if (['tipo_innovacion','tipo_solver','convenio','tipo_pi'].includes(h)) {
-        try { obj[h] = JSON.parse(val || '[]'); } catch { obj[h] = val ? val.split(';') : []; }
-      } else {
-        obj[h] = val;
-      }
-    });
-    return obj;
-  });
+  renderGrid();
 }
 
-async function cargarDesdeSheets() {
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'TU_URL_DE_APPS_SCRIPT_AQUI') {
-    throw new Error('URL de Apps Script no configurada');
+function filtrar(btn) {
+  if (btn) {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    sectorActivo = btn.dataset.sector;
   }
-
-  // Leer via Apps Script (GET, sin CORS issues)
-  const [retosRes, solucionesRes] = await Promise.all([
-    fetch(`${APPS_SCRIPT_URL}?action=getRetos`, { redirect: 'follow' }),
-    fetch(`${APPS_SCRIPT_URL}?action=getSoluciones`, { redirect: 'follow' })
-  ]);
-
-  const retosData = await retosRes.json();
-  const solucionesData = await solucionesRes.json();
-
-  // Validar que sean arrays
-  if (!Array.isArray(retosData)) throw new Error('Respuesta de retos inválida: ' + JSON.stringify(retosData));
-  
-  retos = retosData;
-  soluciones = Array.isArray(solucionesData) ? solucionesData : [];
-
-  // Sobreescribir localStorage con datos frescos de Sheets
-  localStorage.setItem('plynn_retos', JSON.stringify(retos));
-  localStorage.setItem('plynn_soluciones', JSON.stringify(soluciones));
-  // Marcar que ya NO se deben usar demos
-  localStorage.setItem('plynn_sheets_ok', '1');
-  
-  console.log(`✅ Sheets: ${retos.length} retos, ${soluciones.length} soluciones`);
+  renderGrid();
 }
 
-// ---- Enviar datos a Sheets via GET + payload encoded ----
-async function sheetsPost(action, data) {
-  const payload = encodeURIComponent(JSON.stringify(data));
-  const url = `${APPS_SCRIPT_URL}?action=${action}&payload=${payload}`;
-  const res = await fetch(url, { redirect: 'follow' });
-  const result = await res.json();
-  console.log(`sheetsPost ${action}:`, result);
-  return result;
-}
-
-// ---- FALLBACK: localStorage ----
-function cargarDesdeLocal() {
-  const retosGuardados = JSON.parse(localStorage.getItem('plynn_retos') || '[]');
-  soluciones = JSON.parse(localStorage.getItem('plynn_soluciones') || '[]');
-  const sheetsHaConectadoAntes = localStorage.getItem('plynn_sheets_ok') === '1';
-
-  // Si Sheets conectó antes, usar su caché (no demos)
-  if (retosGuardados.length > 0 && sheetsHaConectadoAntes) {
-    retos = retosGuardados;
+function renderGrid() {
+  const q = (document.getElementById('search-input')?.value || '').toLowerCase();
+  let lista = [...retos].reverse();
+  if (sectorActivo !== 'todos') lista = lista.filter(r => r.sector === sectorActivo);
+  if (q) lista = lista.filter(r =>
+    r.reto?.toLowerCase().includes(q) ||
+    r.empresa?.toLowerCase().includes(q) ||
+    r.descripcion?.toLowerCase().includes(q)
+  );
+  const grid = document.getElementById('grid-retos');
+  if (lista.length === 0) {
+    grid.innerHTML = `<div class="empty"><span class="empty-icon">🔍</span><h3>Sin resultados</h3><p>Prueba con otros filtros o búsqueda.</p></div>`;
     return;
   }
-  // Si nunca ha conectado y hay cache, usarlo
-  if (retosGuardados.length > 0) {
-    retos = retosGuardados;
-  } else {
-    // Datos demo si no hay nada guardado
-    retos = [
-      {
-        id: 'demo-1',
-        empresa: 'Alimentos del Valle S.A.S.',
-        sector: 'Sector Industrial',
-        correo: 'innovacion@alimentosvalle.com',
-        reto: '¿Cómo podemos reducir el desperdicio de alimentos en nuestra línea de producción en un 30%?',
-        descripcion: 'Actualmente perdemos el 22% de la materia prima durante el proceso de transformación. Esto genera costos adicionales de $80M anuales y afecta nuestra huella ambiental.',
-        areas: 'Producción, Logística, Sostenibilidad',
-        tipo_innovacion: ['Proceso', 'Producto'],
-        tipo_solver: ['Startup', 'Universidad (investigación)'],
-        convenio: ['Coocrear y coodesarrollar con financiamiento de la empresa'],
-        fecha_limite: '2026-08-31',
-        contacto_info: 'Gerente de Innovación - 301 234 5678',
-        fecha_publicacion: new Date().toISOString()
-      },
-      {
-        id: 'demo-2',
-        empresa: 'Transportes Rápidos del Sur',
-        sector: 'Sector de Transporte',
-        correo: 'gerencia@transportesrapidos.co',
-        reto: '¿Qué solución tecnológica nos permite optimizar las rutas de entrega y reducir tiempos en un 20%?',
-        descripcion: 'Operamos 45 vehículos de carga en el área metropolitana. El 35% de nuestros despachos llegan tarde por una planificación manual de rutas.',
-        areas: 'Operaciones, Logística, Tecnología',
-        tipo_innovacion: ['Proceso', 'Modelo de negocio'],
-        tipo_solver: ['Startup', 'Empresa'],
-        convenio: ['Contrato de obra / asesoría técnica'],
-        fecha_limite: '2026-07-15',
-        contacto_info: 'Director de Operaciones - 310 876 5432',
-        fecha_publicacion: new Date().toISOString()
-      },
-      {
-        id: 'demo-3',
-        empresa: 'Moda Sostenible LTDA',
-        sector: 'Sector de Comercio',
-        correo: 'diseno@modasostenible.com.co',
-        reto: '¿Cómo podemos implementar un modelo de negocio circular para reducir el inventario no vendido?',
-        descripcion: 'Al final de cada temporada tenemos entre el 15% y 25% de inventario sin vender. Queremos explorar modelos como renta de prendas o upcycling.',
-        areas: 'Comercial, Marketing, Operaciones',
-        tipo_innovacion: ['Modelo de negocio', 'Marketing / Endomarketing'],
-        tipo_solver: ['Startup', 'Universidad (estudiantes)'],
-        convenio: ['Crear emprendimiento conjunto'],
-        fecha_limite: '2026-09-30',
-        contacto_info: 'CEO - info@modasostenible.com.co',
-        fecha_publicacion: new Date().toISOString()
-      }
-    ];
-    localStorage.setItem('plynn_retos', JSON.stringify(retos));
-  }
+  grid.innerHTML = lista.map(cardHTML).join('');
 }
 
-function showView(view, param) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById(`view-${view}`).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (view === 'home') renderHome();
-  if (view === 'listado') renderListado();
-  if (view === 'detalle' && param) renderDetalle(param);
-  if (view === 'postular') {
-    populateRetoSelect();
-    if (param) {
-      document.getElementById('select-reto-solver').value = param;
-      const r = retos.find(r => r.id === param);
-      if (r) document.getElementById('postular-reto-nombre').textContent = '→ ' + r.reto;
-    }
-  }
-}
-
-function renderHome() {
-  const countEl = document.getElementById('home-counters');
-  countEl.innerHTML = `
-    <div class="counter-item"><span class="counter-num">${retos.length}</span><span class="counter-label">Retos publicados</span></div>
-    <div class="counter-item"><span class="counter-num cyan">${soluciones.length}</span><span class="counter-label">Soluciones enviadas</span></div>
-    <div class="counter-item"><span class="counter-num">${new Set(retos.map(r => r.empresa)).size}</span><span class="counter-label">Empresas activas</span></div>
-  `;
-  const grid = document.getElementById('home-retos');
-  const recientes = [...retos].reverse().slice(0, 3);
-  if (recientes.length === 0) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><span class="empty-icon">🚀</span><h3>¡Sé el primero!</h3><p>Aún no hay retos publicados.</p><button class="btn-ver" onclick="showView('publicar')">Publicar primer reto</button></div>`;
-  } else {
-    grid.innerHTML = recientes.map(r => retoCardHTML(r)).join('');
-  }
-  const verMas = document.getElementById('home-ver-mas');
-  verMas.innerHTML = retos.length > 3 ? `<button class="btn-ver" style="padding:12px 32px; font-size:14px;" onclick="showView('listado')">Ver todos los retos (${retos.length}) →</button>` : '';
-}
-
-function renderListado() {
-  const grid = document.getElementById('listado-retos');
-  if (retos.length === 0) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><span class="empty-icon">🔍</span><h3>No hay retos publicados aún</h3><p>Las empresas aún no han publicado retos.</p><button class="btn-ver" onclick="showView('publicar')">Publicar un reto</button></div>`;
-  } else {
-    grid.innerHTML = [...retos].reverse().map(r => retoCardHTML(r)).join('');
-  }
-}
-
-function retoCardHTML(r) {
-  const hoy = new Date();
-  const limite = new Date(r.fecha_limite);
-  const diasRestantes = Math.ceil((limite - hoy) / (1000 * 60 * 60 * 24));
-  const fechaTexto = diasRestantes > 0 ? `<strong>${diasRestantes} días</strong> restantes` : '<strong>Cerrado</strong>';
+function cardHTML(r) {
+  const dias = Math.ceil((new Date(r.fecha_limite) - new Date()) / 86400000);
+  const diasTxt = dias > 0 ? `<strong>${dias} días</strong> restantes` : '<strong>Cerrado</strong>';
+  const diasClass = dias > 0 ? 'ok' : '';
   return `
-    <div class="reto-card anim" onclick="showView('detalle', '${r.id}')">
-      <div class="reto-card-top"></div>
-      <div class="reto-card-body">
-        <span class="reto-sector">${r.sector}</span>
-        <div class="reto-nombre">${r.reto}</div>
-        <div class="reto-empresa">${r.empresa}</div>
-        <div class="reto-desc">${r.descripcion}</div>
+    <div class="card" onclick="showView('detalle','${r.id}')">
+      <div class="card-stripe"></div>
+      <div class="card-body">
+        <span class="card-sector">${r.sector}</span>
+        <div class="card-reto">${r.reto}</div>
+        <div class="card-empresa">${r.empresa}</div>
+        <div class="card-desc">${r.descripcion}</div>
       </div>
-      <div class="reto-card-footer">
-        <span class="reto-fecha">⏱ ${fechaTexto}</span>
-        <button class="btn-ver" onclick="event.stopPropagation(); showView('detalle','${r.id}')">Ver reto →</button>
+      <div class="card-footer">
+        <span class="card-dias ${diasClass}">⏱ ${diasTxt}</span>
+        <button class="btn-card" onclick="event.stopPropagation();showView('detalle','${r.id}')">Ver reto →</button>
       </div>
     </div>`;
 }
 
+// ── RENDER DETALLE ──
 function renderDetalle(id) {
   currentRetoId = id;
   const r = retos.find(x => x.id === id);
   if (!r) return;
-  const hoy = new Date();
-  const limite = new Date(r.fecha_limite);
-  const diasRestantes = Math.ceil((limite - hoy) / (1000 * 60 * 60 * 24));
+  const dias = Math.ceil((new Date(r.fecha_limite) - new Date()) / 86400000);
   const numSols = soluciones.filter(s => s.reto_id === id).length;
-  const innovTags = (r.tipo_innovacion || []).map(t => `<span class="tag">${t}</span>`).join('');
-  const convenioTags = (r.convenio || []).map(t => `<span class="tag">${t}</span>`).join('');
-  const solverTags = (r.tipo_solver || []).map(t => `<span class="tag">${t}</span>`).join('');
-
+  const mkTags = arr => (arr || []).map(t => `<span class="det-tag">${t}</span>`).join('');
   document.getElementById('detalle-contenido').innerHTML = `
-    <button class="btn-back" onclick="showView('listado')">← Todos los retos</button>
-    <div class="detalle-hero anim">
-      <span class="detalle-sector-tag">${r.sector}</span>
-      <div class="detalle-reto">${r.reto}</div>
-      <div class="detalle-empresa-tag">Publicado por <strong>${r.empresa}</strong></div>
+    <button class="btn-back" onclick="showView('home')">← Todos los retos</button>
+    <div class="det-hero">
+      <span class="det-sector">${r.sector}</span>
+      <div class="det-reto">${r.reto}</div>
+      <div class="det-empresa">Publicado por <strong>${r.empresa}</strong></div>
     </div>
-    <div class="detalle-grid">
-      <div class="detalle-card full anim anim-d1">
-        <div class="detalle-card-label">Descripción del reto</div>
-        <div class="detalle-card-value">${r.descripcion}</div>
-      </div>
-      ${r.areas ? `<div class="detalle-card anim anim-d2"><div class="detalle-card-label">Áreas impactadas</div><div class="detalle-card-value">${r.areas}</div></div>` : ''}
-      ${r.tipo_innovacion?.length ? `<div class="detalle-card anim anim-d2"><div class="detalle-card-label">Tipo de innovación</div><div class="tags-list">${innovTags}</div></div>` : ''}
-      ${r.requisitos ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">Requisitos mínimos</div><div class="detalle-card-value">${r.requisitos}</div></div>` : ''}
-      ${r.barreras ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">Posibles barreras</div><div class="detalle-card-value">${r.barreras}</div></div>` : ''}
-      ${solverTags ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">Tipo de solver buscado</div><div class="tags-list">${solverTags}</div></div>` : ''}
-      ${convenioTags ? `<div class="detalle-card anim anim-d3"><div class="detalle-card-label">Tipo de convenio ofrecido</div><div class="tags-list">${convenioTags}</div></div>` : ''}
-      ${r.presupuesto ? `<div class="detalle-card anim anim-d4"><div class="detalle-card-label">Presupuesto estimado</div><div class="detalle-card-value">${r.presupuesto}</div></div>` : ''}
-      ${r.tiempo ? `<div class="detalle-card anim anim-d4"><div class="detalle-card-label">Tiempo de ejecución</div><div class="detalle-card-value">${r.tiempo}</div></div>` : ''}
-      <div class="detalle-card anim anim-d4">
-        <div class="detalle-card-label">Fecha límite</div>
-        <div class="fecha-badge">${new Date(r.fecha_limite + 'T00:00:00').toLocaleDateString('es-CO', {year:'numeric',month:'long',day:'numeric'})}  ·  ${diasRestantes > 0 ? diasRestantes + ' días restantes' : 'Cerrado'}</div>
-      </div>
-      <div class="detalle-card anim anim-d4">
-        <div class="detalle-card-label">Postulaciones recibidas</div>
-        <div class="detalle-card-value" style="font-size:28px; font-weight:900; color:var(--cyan);">${numSols}</div>
-      </div>
-      ${r.contacto_info ? `<div class="detalle-card full anim anim-d4"><div class="detalle-card-label">Contacto</div><div class="detalle-card-value">${r.contacto_info}  |  ${r.correo}</div></div>` : ''}
+    <div class="det-grid">
+      <div class="det-card full"><div class="det-label">Descripción del reto</div><div class="det-value">${r.descripcion}</div></div>
+      ${r.areas ? `<div class="det-card"><div class="det-label">Áreas impactadas</div><div class="det-value">${r.areas}</div></div>` : ''}
+      ${(r.tipo_innovacion||[]).length ? `<div class="det-card"><div class="det-label">Tipo de innovación</div><div class="det-tags">${mkTags(r.tipo_innovacion)}</div></div>` : ''}
+      ${r.requisitos ? `<div class="det-card"><div class="det-label">Requisitos mínimos</div><div class="det-value">${r.requisitos}</div></div>` : ''}
+      ${r.barreras ? `<div class="det-card"><div class="det-label">Posibles barreras</div><div class="det-value">${r.barreras}</div></div>` : ''}
+      ${(r.tipo_solver||[]).length ? `<div class="det-card"><div class="det-label">Solver buscado</div><div class="det-tags">${mkTags(r.tipo_solver)}</div></div>` : ''}
+      ${(r.convenio||[]).length ? `<div class="det-card"><div class="det-label">Convenio ofrecido</div><div class="det-tags">${mkTags(r.convenio)}</div></div>` : ''}
+      ${r.presupuesto ? `<div class="det-card"><div class="det-label">Presupuesto estimado</div><div class="det-value">${r.presupuesto}</div></div>` : ''}
+      ${r.tiempo ? `<div class="det-card"><div class="det-label">Tiempo de ejecución</div><div class="det-value">${r.tiempo}</div></div>` : ''}
+      <div class="det-card"><div class="det-label">Fecha límite</div><div class="fecha-badge">📅 ${new Date(r.fecha_limite+'T00:00:00').toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'})} · ${dias > 0 ? dias+' días restantes' : 'Cerrado'}</div></div>
+      <div class="det-card"><div class="det-label">Postulaciones recibidas</div><div class="det-value" style="font-size:30px;font-weight:900;color:var(--cyan);font-family:'Syne',sans-serif;">${numSols}</div></div>
+      ${r.contacto_info ? `<div class="det-card full"><div class="det-label">Contacto</div><div class="det-value">${r.contacto_info}</div></div>` : ''}
     </div>
-    ${diasRestantes > 0 ? `<button class="btn-postular anim" onclick="showView('postular', '${r.id}')">PROPONER MI SOLUCIÓN</button>` : `<div class="info-box" style="margin-top:8px;">Este reto ya cerró su convocatoria. ¡Revisa otros retos activos!</div>`}
-    <button class="btn-cerrar-reto anim" onclick="abrirModalCerrar('${r.id}')">Marcar como completado y eliminar</button>
-  `;
+    ${dias > 0
+      ? `<button class="btn-postular" onclick="showView('postular','${r.id}')">💡 PROPONER MI SOLUCIÓN</button>`
+      : `<div class="closed-box">🔒 Este reto ya cerró su convocatoria. ¡Revisa otros retos activos!</div>`
+    }`;
 }
 
-async function submitReto(e) {
-  e.preventDefault();
-  const f = e.target;
-  const tiposInn = [...f.querySelectorAll('[name="tipo_innovacion"]:checked')].map(el => el.value);
-  const tiposSolv = [...f.querySelectorAll('[name="tipo_solver"]:checked')].map(el => el.value);
-  const convenios = [...f.querySelectorAll('[name="convenio"]:checked')].map(el => el.value);
-
-  if (!f.empresa.value || !f.sector.value || !f.correo.value || !f.reto.value || !f.descripcion.value || !f.fecha_limite.value) {
-    showToast('Completa todos los campos obligatorios', '#FF4343');
-    return;
-  }
-
-  const newReto = {
-    id: 'reto-' + Date.now(),
-    empresa: f.empresa.value,
-    sector: f.sector.value,
-    correo: f.correo.value,
-    reto: f.reto.value,
-    descripcion: f.descripcion.value,
-    areas: f.areas.value,
-    requisitos: f.requisitos.value,
-    barreras: f.barreras.value,
-    tipo_innovacion: tiposInn,
-    tipo_solver: tiposSolv,
-    convenio: convenios,
-    presupuesto: f.presupuesto.value,
-    tiempo: f.tiempo.value,
-    fecha_limite: f.fecha_limite.value,
-    contacto_info: f.contacto_info.value,
-    fecha_publicacion: new Date().toISOString()
-  };
-
-  // Deshabilitar botón mientras guarda
-  const btn = f.querySelector('.btn-submit');
-  btn.disabled = true;
-  btn.textContent = 'Guardando...';
-
-  try {
-    if (sheetsConectado) {
-      const result = await sheetsPost('addReto', newReto);
-      if (!result.success) throw new Error('Error al guardar en Sheets: ' + (result.error || ''));
-    }
-    // También guardar en localStorage (cache)
-    retos.push(newReto);
-    localStorage.setItem('plynn_retos', JSON.stringify(retos));
-
-    f.reset();
-    document.querySelector('#view-publicar .form-page').innerHTML = `
-      <div class="form-card">
-        <div class="success-state">
-          <div class="success-icon" style="font-size:32px;">✓</div>
-          <h2>¡Reto publicado con éxito!</h2>
-          <p>Tu reto ya está visible para todos los solvers${sheetsConectado ? ' y guardado en Google Sheets' : ''}.</p>
-          <button class="btn-postular" style="background:var(--amarillo);color:var(--azul);" onclick="showView('home')">Ver todos los retos</button>
-        </div>
-      </div>`;
-    showToast('Reto publicado exitosamente');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  } catch (err) {
-    console.error(err);
-    btn.disabled = false;
-    btn.textContent = 'PUBLICAR RETO DE INNOVACIÓN';
-    showToast('Error al guardar. Inténtalo de nuevo.', '#FF4343');
-  }
-}
-
+// ── SUBMIT SOLVER ──
 async function submitSolver(e) {
   e.preventDefault();
   const f = e.target;
-  const autorizacion = f.autorizacion.value;
-  if (autorizacion !== 'SI') {
-    showToast('Debes autorizar el uso de tus datos para continuar', '#FF4343');
-    return;
-  }
-  const required = ['solver_nombre', 'contacto_nombre', 'cargo', 'celular', 'correo', 'reto_id', 'descripcion_solucion', 'mejor_solucion'];
-  for (const name of required) {
-    if (!f[name] || !f[name].value) {
-      showToast('Completa todos los campos obligatorios', '#FF4343');
-      return;
-    }
-  }
-  const tipoPI = [...f.querySelectorAll('[name="tipo_pi"]:checked')].map(el => el.value);
-  const newSol = {
+  if (f.autorizacion.value !== 'SI') { showToast('Debes autorizar el uso de tus datos', '#FF4343'); return; }
+  const req = ['solver_nombre','contacto_nombre','cargo','celular','correo','reto_id','descripcion_solucion','mejor_solucion'];
+  for (const n of req) { if (!f[n]?.value) { showToast('Completa todos los campos obligatorios', '#FF4343'); return; } }
+
+  const tipoPI = [...f.querySelectorAll('[name="tipo_pi"]:checked')].map(x => x.value);
+  const sol = {
     id: 'sol-' + Date.now(),
-    reto_id: f.reto_id.value,
-    autorizacion: f.autorizacion.value,
-    solver_nombre: f.solver_nombre.value,
-    nit: f.nit.value,
-    web: f.web.value,
-    tipo_solver: f.tipo_solver_post?.value || '',
-    contacto_nombre: f.contacto_nombre.value,
-    cargo: f.cargo.value,
-    celular: f.celular.value,
-    correo: f.correo.value,
-    sector: f.sector_solver.value,
-    descripcion: f.descripcion_solucion.value,
-    nivel_desarrollo: f.nivel_desarrollo?.value || '',
-    mejor_solucion: f.mejor_solucion.value,
-    tiene_pi: f.tiene_pi?.value || 'NO',
-    tipo_pi: tipoPI,
-    equipo_size: f.equipo_size?.value || '',
-    perfiles: f.perfiles_equipo.value,
-    convenio: f.convenio_solver?.value || '',
-    fecha: new Date().toISOString()
+    reto_id:            f.reto_id.value,
+    autorizacion:       f.autorizacion.value,
+    solver_nombre:      f.solver_nombre.value,
+    nit:                f.nit.value,
+    web:                f.web.value,
+    tipo_solver:        f.tipo_solver_post?.value || '',
+    contacto_nombre:    f.contacto_nombre.value,
+    cargo:              f.cargo.value,
+    celular:            f.celular.value,
+    correo:             f.correo.value,
+    sector:             f.sector_solver.value,
+    descripcion:        f.descripcion_solucion.value,
+    nivel_desarrollo:   f.nivel_desarrollo?.value || '',
+    mejor_solucion:     f.mejor_solucion.value,
+    tiene_pi:           f.tiene_pi?.value || 'NO',
+    tipo_pi:            tipoPI,
+    equipo_size:        f.equipo_size?.value || '',
+    perfiles:           f.perfiles_equipo.value,
+    convenio:           f.convenio_solver?.value || '',
+    fecha:              new Date().toISOString()
   };
 
-  const btn = f.querySelector('.btn-submit');
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
-
+  const btn = document.getElementById('btn-enviar-solver');
+  btn.disabled = true; btn.textContent = 'Enviando...';
   try {
-    if (sheetsConectado) {
-      const result = await sheetsPost('addSolucion', newSol);
-      if (!result.success) throw new Error('Error al guardar en Sheets: ' + (result.error || ''));
-    }
-    soluciones.push(newSol);
+    const payload = encodeURIComponent(JSON.stringify(sol));
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=addSolucion&payload=${payload}`, { redirect: 'follow' });
+    const result = await res.json();
+    if (!result.success) throw new Error(result.error || 'Error al guardar');
+    soluciones.push(sol);
     localStorage.setItem('plynn_soluciones', JSON.stringify(soluciones));
-
-    f.reset();
-    togglePI(false);
-    document.querySelector('#view-postular .form-page').innerHTML = `
-      <div class="form-card">
-        <div class="success-state">
-          <div class="success-icon" style="font-size:32px;">✓</div>
-          <h2>¡Postulación enviada!</h2>
-          <p>Tu solución fue registrada exitosamente${sheetsConectado ? ' en Google Sheets' : ''}. ¡Mucho éxito!</p>
-          <button class="btn-postular" onclick="showView('listado')">Explorar más retos</button>
-        </div>
-      </div>`;
-    showToast('Postulación enviada con éxito');
+    document.querySelector('#view-postular .form-wrap').innerHTML = `
+      <div class="form-card"><div class="success-wrap">
+        <div class="success-icon">✓</div>
+        <h2>¡Postulación enviada!</h2>
+        <p>Tu propuesta fue registrada exitosamente. La empresa recibirá una notificación y se pondrá en contacto contigo. ¡Mucho éxito!</p>
+        <button class="btn-postular" onclick="showView('home')">Explorar más retos</button>
+      </div></div>`;
+    showToast('✅ Postulación enviada con éxito');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (err) {
-    console.error(err);
-    btn.disabled = false;
-    btn.textContent = 'ENVIAR POSTULACIÓN';
+    btn.disabled = false; btn.textContent = 'ENVIAR POSTULACIÓN';
     showToast('Error al enviar. Inténtalo de nuevo.', '#FF4343');
   }
 }
 
-function populateRetoSelect() {
+function populateSelect() {
   const sel = document.getElementById('select-reto-solver');
   if (!sel) return;
   sel.innerHTML = '<option value="">Seleccione el reto...</option>' +
-    retos.map(r => `<option value="${r.id}">${r.empresa} · ${r.reto.substring(0, 60)}...</option>`).join('');
+    retos.map(r => `<option value="${r.id}">${r.empresa} · ${r.reto.substring(0,65)}...</option>`).join('');
 }
 
 function togglePI(show) {
@@ -1219,79 +697,16 @@ function togglePI(show) {
 
 function volverAlReto() {
   if (currentRetoId) showView('detalle', currentRetoId);
-  else showView('listado');
+  else showView('home');
 }
 
 function showToast(msg, color) {
   const t = document.getElementById('toast');
-  const m = document.getElementById('toast-msg');
-  m.textContent = msg;
+  document.getElementById('toast-msg').textContent = msg;
   t.style.background = color || 'var(--azul)';
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3500);
 }
-
-// ---- CERRAR / ELIMINAR RETO ----
-let retoParaCerrar = null;
-
-function abrirModalCerrar(id) {
-  retoParaCerrar = id;
-  document.getElementById('input-correo-cierre').value = '';
-  document.getElementById('modal-cerrar').style.display = 'flex';
-}
-
-function cerrarModal(e) {
-  // Solo cierra si click en overlay
-  document.getElementById('modal-cerrar').style.display = 'none';
-}
-
-async function confirmarCierreReto() {
-  const correoIngresado = document.getElementById('input-correo-cierre').value.trim().toLowerCase();
-  if (!correoIngresado) {
-    showToast('Ingresa tu correo para confirmar', '#FF4343');
-    return;
-  }
-
-  const reto = retos.find(r => r.id === retoParaCerrar);
-  if (!reto) {
-    showToast('❌ Reto no encontrado', '#FF4343');
-    return;
-  }
-
-  if (correoIngresado !== reto.correo.toLowerCase()) {
-    showToast('El correo no coincide con el de la publicación', '#FF4343');
-    return;
-  }
-
-  // Confirmar
-  const btn = document.querySelector('.btn-confirmar-cerrar');
-  btn.disabled = true;
-  btn.textContent = 'Eliminando...';
-
-  try {
-    if (sheetsConectado) {
-      const result = await sheetsPost('deleteReto', { id: retoParaCerrar });
-      if (!result.success) throw new Error(result.error || 'Error al eliminar');
-    }
-
-    // Eliminar localmente
-    retos = retos.filter(r => r.id !== retoParaCerrar);
-    soluciones = soluciones.filter(s => s.reto_id !== retoParaCerrar);
-    localStorage.setItem('plynn_retos', JSON.stringify(retos));
-    localStorage.setItem('plynn_soluciones', JSON.stringify(soluciones));
-
-    document.getElementById('modal-cerrar').style.display = 'none';
-    showToast('Reto eliminado correctamente');
-    showView('listado');
-
-  } catch (err) {
-    console.error(err);
-    btn.disabled = false;
-    btn.textContent = 'Eliminar reto';
-    showToast('❌ Error al eliminar: ' + err.message, '#FF4343');
-  }
-}
-
 </script>
 </body>
 </html>
