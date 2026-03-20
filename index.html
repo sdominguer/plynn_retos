@@ -70,7 +70,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--gris-f);color:var(--ne
 .search-wrap{flex:1;min-width:200px;max-width:300px;position:relative;margin-left:auto;}
 .search-wrap input{width:100%;padding:9px 16px 9px 36px;border:1.5px solid var(--gris-b);border-radius:50px;font-family:'Montserrat',sans-serif;font-size:13px;color:var(--negro);background:#fff;outline:none;transition:all 0.2s;}
 .search-wrap input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(15,186,227,0.12);}
-.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;line-height:1;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;display:block;}
 
 /* ── SECTION ── */
 .section-wrap{padding-top:36px;padding-bottom:60px;}
@@ -242,8 +242,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="C" id="filtros-inner">
       <button class="fpill active" data-sector="todos" onclick="filtrar(this)">Todos</button>
       <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="search-input" placeholder="Buscar retos..." oninput="filtrar(null)"/>
+        <input type="text" id="search-input" placeholder="🔍  Buscar retos..." oninput="filtrar(null)"/>
       </div>
     </div>
   </div>
