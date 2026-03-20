@@ -68,9 +68,9 @@ body{font-family:'Montserrat',sans-serif;background:var(--gris-f);color:var(--ne
 .fpill:hover{border-color:var(--cyan);color:var(--azul);}
 .fpill.active{background:var(--azul);border-color:var(--azul);color:#fff;}
 .search-wrap{flex:1;min-width:200px;max-width:300px;position:relative;margin-left:auto;}
-.search-wrap input{width:100%;padding:9px 16px 9px 38px;border:1.5px solid var(--gris-b);border-radius:50px;font-family:'Montserrat',sans-serif;font-size:13px;color:var(--negro);background:#fff;outline:none;transition:all 0.2s;}
+.search-wrap input{width:100%;padding:9px 16px 9px 36px;border:1.5px solid var(--gris-b);border-radius:50px;font-family:'Montserrat',sans-serif;font-size:13px;color:var(--negro);background:#fff;outline:none;transition:all 0.2s;}
 .search-wrap input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(15,186,227,0.12);}
-.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none;}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;line-height:1;}
 
 /* ── SECTION ── */
 .section-wrap{padding-top:36px;padding-bottom:60px;}
@@ -401,13 +401,16 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
               <div class="form-section-title">Tipo de convenio propuesto</div>
               <div class="field"><label>¿Qué tipo de convenio propone? <span class="req">*</span></label>
                 <div class="options-group" style="flex-direction:column;align-items:flex-start;">
-                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Acepto el convenio propuesto por la empresa"/><span>Acepto el convenio propuesto por la empresa</span></label>
-                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Contrato de obra/asesoría técnica"/><span>Contrato de obra / asesoría técnica</span></label>
-                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Coocrear y coodesarrollar con financiamiento de ambos"/><span>Coocrear y coodesarrollar con financiamiento de ambos</span></label>
-                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Vender la innovación a la empresa"/><span>Vender la innovación a la empresa</span></label>
-                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Crear emprendimiento conjunto"/><span>Crear emprendimiento o intraemprendimiento conjunto</span></label>
-                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Convenio para explotación de resultados"/><span>Convenio para la explotación de resultados entre ambos</span></label>
-                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Otro"/><span>Otro</span></label>
+                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Acepto el convenio propuesto por la empresa" onchange="toggleOtroConvenio(this)"/><span>Acepto el convenio propuesto por la empresa</span></label>
+                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Contrato de obra/asesoría técnica" onchange="toggleOtroConvenio(this)"/><span>Contrato de obra / asesoría técnica</span></label>
+                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Coocrear y coodesarrollar con financiamiento de ambos" onchange="toggleOtroConvenio(this)"/><span>Coocrear y coodesarrollar con financiamiento de ambos</span></label>
+                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Vender la innovación a la empresa" onchange="toggleOtroConvenio(this)"/><span>Vender la innovación a la empresa</span></label>
+                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Crear emprendimiento conjunto" onchange="toggleOtroConvenio(this)"/><span>Crear emprendimiento o intraemprendimiento conjunto</span></label>
+                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Convenio para explotación de resultados" onchange="toggleOtroConvenio(this)"/><span>Convenio para la explotación de resultados entre ambos</span></label>
+                  <label class="option-pill"><input type="radio" name="convenio_solver" value="Otro" onchange="toggleOtroConvenio(this)"/><span>Otro</span></label>
+                </div>
+                <div id="otro-convenio-wrap" style="display:none;margin-top:12px;">
+                  <input type="text" id="otro-convenio-texto" placeholder="Describe el tipo de convenio que propones..." style="width:100%;"/>
                 </div>
               </div>
 
@@ -511,6 +514,8 @@ function filtrar(btn) {
 function renderGrid() {
   const q=(document.getElementById('search-input')?.value||'').toLowerCase();
   let lista=[...retos].reverse();
+  // Fix 2: solo mostrar retos activos (fecha_limite en el futuro)
+  lista=lista.filter(r=>parseFecha(r.fecha_limite)>new Date());
   if(sectorActivo!=='todos') lista=lista.filter(r=>r.sector===sectorActivo);
   if(q) lista=lista.filter(r=>r.reto?.toLowerCase().includes(q)||r.empresa?.toLowerCase().includes(q)||r.descripcion?.toLowerCase().includes(q));
   const grid=document.getElementById('grid-retos');
@@ -520,12 +525,22 @@ function renderGrid() {
 
 function renderListado() {
   const grid=document.getElementById('listado-retos');
-  if(!retos.length){grid.innerHTML=`<div class="empty-state"><span class="empty-icon">🔍</span><h3>No hay retos publicados aún</h3><p>Las empresas aún no han publicado retos.</p></div>`;return;}
-  grid.innerHTML=[...retos].reverse().map(cardHTML).join('');
+  // Fix 2: solo activos en el listado también
+  const activos=[...retos].reverse().filter(r=>parseFecha(r.fecha_limite)>new Date());
+  if(!activos.length){grid.innerHTML=`<div class="empty-state"><span class="empty-icon">🔍</span><h3>No hay retos publicados aún</h3><p>Las empresas aún no han publicado retos.</p></div>`;return;}
+  grid.innerHTML=activos.map(cardHTML).join('');
+}
+
+// Fix 4: parsear fecha correctamente sin "Invalid Date"
+function parseFecha(fechaStr) {
+  if(!fechaStr) return new Date(0);
+  // Si ya tiene T (ISO) usarlo directo, si no agregar T00:00:00
+  if(fechaStr.includes('T')) return new Date(fechaStr);
+  return new Date(fechaStr + 'T00:00:00');
 }
 
 function cardHTML(r) {
-  const dias=Math.ceil((new Date(r.fecha_limite)-new Date())/86400000);
+  const dias=Math.ceil((parseFecha(r.fecha_limite)-new Date())/86400000);
   const dt=dias>0?`<strong>${dias} días</strong> restantes`:'<strong>Cerrado</strong>';
   const dc=dias>0?'ok':'';
   return `<div class="reto-card" onclick="showView('detalle','${r.id}')">
@@ -546,9 +561,11 @@ function cardHTML(r) {
 function renderDetalle(id) {
   currentRetoId=id;
   const r=retos.find(x=>x.id===id);if(!r)return;
-  const dias=Math.ceil((new Date(r.fecha_limite)-new Date())/86400000);
+  const dias=Math.ceil((parseFecha(r.fecha_limite)-new Date())/86400000);
   const n=soluciones.filter(s=>s.reto_id===id).length;
   const tags=arr=>(arr||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+  // Fix 4: formatear fecha sin Invalid Date
+  const fechaFormateada = parseFecha(r.fecha_limite).toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
   document.getElementById('detalle-contenido').innerHTML=`
     <button class="btn-back" onclick="showView('listado')">← Todos los retos</button>
     <div class="detalle-hero">
@@ -566,9 +583,8 @@ function renderDetalle(id) {
       ${(r.convenio||[]).length?`<div class="detalle-card"><div class="detalle-card-label">Convenio ofrecido</div><div class="tags-list">${tags(r.convenio)}</div></div>`:''}
       ${r.presupuesto?`<div class="detalle-card"><div class="detalle-card-label">Presupuesto estimado</div><div class="detalle-card-value">${r.presupuesto}</div></div>`:''}
       ${r.tiempo?`<div class="detalle-card"><div class="detalle-card-label">Tiempo de ejecución</div><div class="detalle-card-value">${r.tiempo}</div></div>`:''}
-      <div class="detalle-card"><div class="detalle-card-label">Fecha límite</div><div class="fecha-badge">📅 ${new Date(r.fecha_limite+'T00:00:00').toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'})} · ${dias>0?dias+' días restantes':'Cerrado'}</div></div>
+      <div class="detalle-card"><div class="detalle-card-label">Fecha límite</div><div class="fecha-badge">📅 ${fechaFormateada} · ${dias>0?dias+' días restantes':'Cerrado'}</div></div>
       <div class="detalle-card"><div class="detalle-card-label">Postulaciones recibidas</div><div class="detalle-card-value" style="font-size:28px;font-weight:900;color:var(--cyan);">${n}</div></div>
-      ${r.contacto_info?`<div class="detalle-card full"><div class="detalle-card-label">Contacto</div><div class="detalle-card-value">${r.contacto_info}</div></div>`:''}
     </div>
     ${dias>0?`<button class="btn-postular" onclick="showView('postular','${r.id}')">PROPONER MI SOLUCIÓN</button>`:`<div class="info-box">Este reto ya cerró su convocatoria. ¡Revisa otros retos activos!</div>`}`;
 }
@@ -579,7 +595,12 @@ async function submitSolver(e) {
   const req=['solver_nombre','contacto_nombre','cargo','celular','correo','reto_id','descripcion_solucion','mejor_solucion'];
   for(const n of req){if(!f[n]?.value){showToast('Completa todos los campos obligatorios','#FF4343');return;}}
   const tipoPI=[...f.querySelectorAll('[name="tipo_pi"]:checked')].map(x=>x.value);
-  const sol={id:'sol-'+Date.now(),reto_id:f.reto_id.value,autorizacion:f.autorizacion.value,solver_nombre:f.solver_nombre.value,nit:f.nit.value,web:f.web.value,tipo_solver:f.tipo_solver_post?.value||'',contacto_nombre:f.contacto_nombre.value,cargo:f.cargo.value,celular:f.celular.value,correo:f.correo.value,sector:f.sector_solver.value,descripcion:f.descripcion_solucion.value,nivel_desarrollo:f.nivel_desarrollo?.value||'',mejor_solucion:f.mejor_solucion.value,tiene_pi:f.tiene_pi?.value||'NO',tipo_pi:tipoPI,equipo_size:f.equipo_size?.value||'',perfiles:f.perfiles_equipo.value,convenio:f.convenio_solver?.value||'',fecha:new Date().toISOString()};
+  // Fix 5: si convenio es "Otro", usar el texto personalizado
+  const convenioVal = f.convenio_solver?.value || '';
+  const convenioFinal = convenioVal === 'Otro'
+    ? ('Otro: ' + (document.getElementById('otro-convenio-texto')?.value || '').trim())
+    : convenioVal;
+  const sol={id:'sol-'+Date.now(),reto_id:f.reto_id.value,autorizacion:f.autorizacion.value,solver_nombre:f.solver_nombre.value,nit:f.nit.value,web:f.web.value,tipo_solver:f.tipo_solver_post?.value||'',contacto_nombre:f.contacto_nombre.value,cargo:f.cargo.value,celular:f.celular.value,correo:f.correo.value,sector:f.sector_solver.value,descripcion:f.descripcion_solucion.value,nivel_desarrollo:f.nivel_desarrollo?.value||'',mejor_solucion:f.mejor_solucion.value,tiene_pi:f.tiene_pi?.value||'NO',tipo_pi:tipoPI,equipo_size:f.equipo_size?.value||'',perfiles:f.perfiles_equipo.value,convenio:convenioFinal,fecha:new Date().toISOString()};
   const btn=document.getElementById('btn-enviar');btn.disabled=true;btn.textContent='Enviando...';
   try {
     const payload=encodeURIComponent(JSON.stringify(sol));
@@ -591,7 +612,13 @@ async function submitSolver(e) {
   } catch(err){btn.disabled=false;btn.textContent='ENVIAR POSTULACIÓN';showToast('Error al enviar. Inténtalo de nuevo.','#FF4343');}
 }
 
-function populateSelect(){const sel=document.getElementById('select-reto-solver');if(!sel)return;sel.innerHTML='<option value="">Seleccione el reto...</option>'+retos.map(r=>`<option value="${r.id}">${r.empresa} · ${r.reto.substring(0,60)}...</option>`).join('');}
+function toggleOtroConvenio(radio) {
+  const wrap = document.getElementById('otro-convenio-wrap');
+  wrap.style.display = radio.value === 'Otro' ? 'block' : 'none';
+  if(radio.value !== 'Otro') document.getElementById('otro-convenio-texto').value = '';
+}
+
+function populateSelect(){const sel=document.getElementById('select-reto-solver');if(!sel)return;sel.innerHTML='<option value="">Seleccione el reto...</option>'+retos.filter(r=>parseFecha(r.fecha_limite)>new Date()).map(r=>`<option value="${r.id}">${r.empresa} · ${r.reto.substring(0,60)}...</option>`).join('');}
 function togglePI(show){document.getElementById('campo-pi').style.display=show?'block':'none';}
 function volverAlReto(){if(currentRetoId)showView('detalle',currentRetoId);else showView('home');}
 function showToast(msg,color){const t=document.getElementById('toast');document.getElementById('toast-msg').textContent=msg;document.getElementById('toast-icon').textContent=color?'❌':'✅';t.style.background=color||'var(--azul)';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
