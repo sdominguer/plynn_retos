@@ -616,50 +616,9 @@ function toggleOtroConvenio(radio) {
   wrap.style.display = radio.value === 'Otro' ? 'block' : 'none';
   if(radio.value !== 'Otro') document.getElementById('otro-convenio-texto').value = '';
 }
-/**
- * Maneja el acceso a la sección de retos del usuario
- */
+
 function handleMisRetos() {
-    const URL_MIS_RETOS = "https://www.plynnpymes.com/retos-privada";
-
-    // Intentamos validar si el usuario ya inició sesión en la comunidad de Wix
-    if (window.wixMembers && window.wixMembers.currentMember) {
-        window.wixMembers.currentMember.getMember()
-            .then((member) => {
-                if (member) {
-                    // Si ya está logueado, redirigir a la página de sus retos
-                    window.location.href = URL_MIS_RETOS;
-                } else {
-                    // Si no tiene sesión, abrir el login de Wix
-                    solicitarLoginWix(URL_MIS_RETOS);
-                }
-            })
-            .catch(() => solicitarLoginWix(URL_MIS_RETOS));
-    } else {
-        // Fallback si el script se ejecuta fuera del entorno directo de Wix
-        solicitarLoginWix(URL_MIS_RETOS);
-    }
-}
-
-/**
- * Lanza el prompt de login de Wix y redirige al éxito
- */
-function solicitarLoginWix(destino) {
-    // Si el script detecta que está dentro de Wix, usa el prompt nativo
-    if (window.wixUsers) {
-        window.wixUsers.promptLogin({ "mode": "login" })
-            .then(() => {
-                window.location.href = destino;
-            })
-            .catch(err => console.log("Login cancelado"));
-    } else {
-        // CORRECCIÓN: Usamos la URL completa de tu dominio en Wix
-        // Esto evita que GitHub intente buscar el login en su propio servidor
-        const loginWixUrl = "https://www.plynnpymes.com/_functions/login?redirect=" + encodeURIComponent(destino);
-        
-        // Si la función anterior no existe, usamos la ruta de login estándar de Wix
-        window.location.href = loginWixUrl;
-    }
+  window.open('https://www.plynnpymes.com/retos-privada', '_blank');
 }
   
 function populateSelect(){const sel=document.getElementById('select-reto-solver');if(!sel)return;sel.innerHTML='<option value="">Seleccione el reto...</option>'+retos.filter(r=>parseFecha(r.fecha_limite)>new Date()).map(r=>`<option value="${r.id}">${r.empresa} · ${r.reto.substring(0,60)}...</option>`).join('');}
