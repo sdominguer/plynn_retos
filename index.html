@@ -645,15 +645,18 @@ function handleMisRetos() {
  * Lanza el prompt de login de Wix y redirige al éxito
  */
 function solicitarLoginWix(destino) {
+    // Intentamos usar el login nativo de Wix si el SDK está cargado
     if (window.wixUsers) {
         window.wixUsers.promptLogin({ "mode": "login" })
             .then(() => {
                 window.location.href = destino;
             })
-            .catch(err => console.log("Login cancelado por el usuario"));
+            .catch(err => console.log("Login cancelado"));
     } else {
-        // Redirección manual al login de Wix con retorno a la página privada
-        window.location.href = "/login?redirect=" + encodeURIComponent(destino);
+        // CORRECCIÓN AQUÍ: Usamos la URL completa de tu dominio en Wix
+        // Esto evita que GitHub intente buscar el login en su propio servidor
+        const loginWixUrl = "https://www.plynnpymes.com/_functions/login?redirect=" + encodeURIComponent(destino);
+        window.location.href = loginWixUrl;
     }
 }
   
