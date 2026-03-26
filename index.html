@@ -228,7 +228,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <p>Explora los retos de innovación publicados por empresas de Latinoamérica y postúlate como solver con tu solución.</p>
       <div class="hero-actions">
         <button class="btn-hero main" onclick="document.getElementById('sec-retos').scrollIntoView({behavior:'smooth'})">Ver retos activos</button>
-        <button class="btn-hero sec" onclick="showView('listado')">Explorar todos los retos</button>
+        <button class="btn-hero sec" onclick="handleMisRetos()">Mis retos</button>
       </div>
     </div>
   </section>
@@ -616,7 +616,49 @@ function toggleOtroConvenio(radio) {
   wrap.style.display = radio.value === 'Otro' ? 'block' : 'none';
   if(radio.value !== 'Otro') document.getElementById('otro-convenio-texto').value = '';
 }
+/**
+ * Maneja el acceso a la sección privada de retos
+ */
+function handleMisRetos() {
+    const URL_PRIVADA = "https://www.plynnpymes.com/retos-privada?rc=test-site";
 
+    // 1. Verificamos si el usuario ya está logueado en la comunidad de Wix
+    if (window.wixMembers && window.wixMembers.currentMember) {
+        window.wixMembers.currentMember.getMember()
+            .then((member) => {
+                if (member) {
+                    // Si ya está logueado, lo enviamos directo a la página privada
+                    window.location.href = URL_PRIVADA;
+                } else {
+                    // Si no hay sesión iniciada, pedimos login
+                    solicitarAccesoWix(URL_PRIVADA);
+                }
+            })
+            .catch(() => solicitarAccesoWix(URL_PRIVADA));
+    } else {
+        // Fallback si no detecta el SDK: intentamos login directo
+        solicitarAccesoWix(URL_PRIVADA);
+    }
+}
+
+/**
+ * Muestra el prompt de login de Wix y redirige al éxito
+ */
+function solicitarAccesoWix(urlDestino) {
+    if (window.wixUsers) {
+        // Abre la ventana de login nativa de Wix
+        window.wixUsers.promptLogin({ "mode": "login" })
+            .then(() => {
+                // Si el login es exitoso, redirigimos a la url privada
+                window.location.href = urlDestino;
+            })
+            .catch(err => console.log("El usuario cerró el login sin entrar."));
+    } else {
+        // Redirección manual al flujo de login de Wix si el prompt no carga
+        window.location.href = "/_functions/login?redirect=" + encodeURIComponent(urlDestino);
+    }
+}
+  
 function populateSelect(){const sel=document.getElementById('select-reto-solver');if(!sel)return;sel.innerHTML='<option value="">Seleccione el reto...</option>'+retos.filter(r=>parseFecha(r.fecha_limite)>new Date()).map(r=>`<option value="${r.id}">${r.empresa} · ${r.reto.substring(0,60)}...</option>`).join('');}
 function togglePI(show){document.getElementById('campo-pi').style.display=show?'block':'none';}
 function volverAlReto(){if(currentRetoId)showView('detalle',currentRetoId);else showView('home');}
