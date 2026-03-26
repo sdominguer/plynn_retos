@@ -617,45 +617,43 @@ function toggleOtroConvenio(radio) {
   if(radio.value !== 'Otro') document.getElementById('otro-convenio-texto').value = '';
 }
 /**
- * Maneja el acceso a la sección privada de retos
+ * Maneja el acceso a la sección de retos del usuario
  */
 function handleMisRetos() {
-    const URL_PRIVADA = "https://www.plynnpymes.com/retos-privada?rc=test-site";
+    const URL_MIS_RETOS = "https://www.plynnpymes.com/retos-privada";
 
-    // 1. Verificamos si el usuario ya está logueado en la comunidad de Wix
+    // Intentamos validar si el usuario ya inició sesión en la comunidad de Wix
     if (window.wixMembers && window.wixMembers.currentMember) {
         window.wixMembers.currentMember.getMember()
             .then((member) => {
                 if (member) {
-                    // Si ya está logueado, lo enviamos directo a la página privada
-                    window.location.href = URL_PRIVADA;
+                    // Si ya está logueado, redirigir a la página de sus retos
+                    window.location.href = URL_MIS_RETOS;
                 } else {
-                    // Si no hay sesión iniciada, pedimos login
-                    solicitarAccesoWix(URL_PRIVADA);
+                    // Si no tiene sesión, abrir el login de Wix
+                    solicitarLoginWix(URL_MIS_RETOS);
                 }
             })
-            .catch(() => solicitarAccesoWix(URL_PRIVADA));
+            .catch(() => solicitarLoginWix(URL_MIS_RETOS));
     } else {
-        // Fallback si no detecta el SDK: intentamos login directo
-        solicitarAccesoWix(URL_PRIVADA);
+        // Fallback si el script se ejecuta fuera del entorno directo de Wix
+        solicitarLoginWix(URL_MIS_RETOS);
     }
 }
 
 /**
- * Muestra el prompt de login de Wix y redirige al éxito
+ * Lanza el prompt de login de Wix y redirige al éxito
  */
-function solicitarAccesoWix(urlDestino) {
+function solicitarLoginWix(destino) {
     if (window.wixUsers) {
-        // Abre la ventana de login nativa de Wix
         window.wixUsers.promptLogin({ "mode": "login" })
             .then(() => {
-                // Si el login es exitoso, redirigimos a la url privada
-                window.location.href = urlDestino;
+                window.location.href = destino;
             })
-            .catch(err => console.log("El usuario cerró el login sin entrar."));
+            .catch(err => console.log("Login cancelado por el usuario"));
     } else {
-        // Redirección manual al flujo de login de Wix si el prompt no carga
-        window.location.href = "/_functions/login?redirect=" + encodeURIComponent(urlDestino);
+        // Redirección manual al login de Wix con retorno a la página privada
+        window.location.href = "/login?redirect=" + encodeURIComponent(destino);
     }
 }
   
